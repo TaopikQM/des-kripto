@@ -29,16 +29,16 @@ def main():
      # Meminta input dari pengguna
     my_string = st.text_input("Masukkan PLAINTEXT Anda:")
 
-     if my_string:
+     if my_stringG:
         # Mengubah string menjadi representasi biner
-        bin_string = string_to_bin(my_string)
+        bin_stringG = string_to_bin(my_stringG)
 
         # Memisahkan string biner menjadi blok 8 bit
-        bin_chunks = list(chunks(bin_string, 8))
+        bin_chunksG = list(chunks(bin_stringG, 8))
 
         # Mencetak blok 8 bit
         st.write("Hasil P:")
-        for chunk in bin_chunks:
-            st.write(chunk)
+        for chunkG in bin_chunksG:
+            st.write(chunkG)
 if __name__ == "__main__":
     main()
