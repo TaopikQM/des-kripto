@@ -170,7 +170,7 @@ def main():
         # Menghapus cache (pastikan ini diperlukan di sini)
         st.caching.clear_cache()
 
-    my_string = st.text_input("Masukkan String atau PLAINTEXT Anda:")
+    my_string = st.text_input("Masukkan String atau KEY Anda:")
 
     if my_string:
         st.subheader("Hasil ASCII:")
