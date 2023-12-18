@@ -74,7 +74,7 @@ def main():
                 st.write(chunk)
     elif option == "DES Key Generation":
         # Meminta input dari pengguna untuk PLAINTEXT
-        plaintext = st.text_input("Masukkan PLAINTEXT Anda:")
+        plaintext = st.text_input("Masukkan KEY Anda:")
 
         if plaintext:
             # Membuat instance DES dengan kunci
@@ -87,7 +87,7 @@ def main():
             permuted_plaintext = my_des.permuted_choice_1(plaintext)
 
             # Menampilkan PLAINTEXT setelah permutasi
-            st.write("PLAINTEXT setelah PC-1:", permuted_plaintext)
+            st.write("KEY setelah PC-1:", permuted_plaintext)
 
             plaintext_pc1_chunks = list(chunks(permuted_plaintext, 8))
             st.write("PC-1 per 8 bit:"," ".join(plaintext_pc1_chunks))
