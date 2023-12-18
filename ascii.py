@@ -228,12 +228,11 @@ def main():
                     st.subheader("Tahapan DES PLAINTEXT Generation")
 
                     my_des = DES(bin_string)
-                     # Menerapkan Initial Permutation ke plaintext
+                    # Menerapkan Initial Permutation ke plaintext
                     permuted_plaintext = my_des.initial_permutation(my_des.plaintext)
-
+            
                     # Displaying plaintext after Initial Permutation
                     st.subheader("Plaintext after IP:")
-                    permuted_plaintext = my_des.initial_permutation(plaintext)
                     st.write(permuted_plaintext)
         
                     # Split permuted_plaintext into 8-bit chunks
