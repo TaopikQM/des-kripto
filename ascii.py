@@ -228,7 +228,6 @@ def main():
                     st.subheader("Tahapan DES PLAINTEXT Generation")
             
                     my_des = DES(bin_string)
-                    my_des.plaintext = bin_string  # Pastikan plaintext diatur dengan benar
             
                     # Menerapkan Initial Permutation ke plaintext
                     permuted_plaintext = my_des.initial_permutation()
