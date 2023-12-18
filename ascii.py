@@ -170,7 +170,7 @@ def main():
         ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
         st.write(ascii_result)
 
-        bin_string = string_to_bin(my_string)
+        bin_string = DES.string_to_bin(my_string)
 
         if len(bin_string) == 64:
             st.subheader("Tahapan DES Key Generation")
