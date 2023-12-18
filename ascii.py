@@ -50,41 +50,34 @@ def chunks(s, n):
 def main():
     st.title("String to Binary Converter / DES Key Generation")
 
-    # Meminta input dari pengguna untuk String atau DES Key Generation
-    option = st.radio("Pilih operasi:", ["String to Binary", "DES Key Generation"])
-
     # Memasukkan tombol refresh
     if st.button("Refresh"):
         st.caching.clear_cache()
 
-    if option == "String to Binary":
-        # Meminta input dari pengguna untuk String
-        my_string = st.text_input("Masukkan String Anda:")
+    # Meminta input dari pengguna untuk String atau DES Key Generation
+    my_string = st.text_input("Masukkan String atau PLAINTEXT Anda:")
 
-        if my_string:
-            # Mengubah String menjadi representasi biner
-            bin_string = string_to_bin(my_string)
-            
-            # Memisahkan string biner menjadi blok 8 bit
-            bin_chunks = list(chunks(bin_string, 8))
-            
-            # Mencetak blok 8 bit tanpa spasi
-            st.write("Hasil ASCII:")
-            for chunk in bin_chunks:
-                st.write(chunk)
-            # Mencetak blok 8 bit dengan spasi
-            st.write("Hasil ASCII per 8 bit:")
-            st.write(" ".join(bin_chunks))
+    if my_string:
+        # Mengubah String menjadi representasi biner
+        bin_string = string_to_bin(my_string)
 
-            
-    elif option == "DES Key Generation":
-        # Meminta input dari pengguna untuk PLAINTEXT
-        plaintext = st.text_input("Masukkan PLAINTEXT Anda:")
+        if len(bin_string) == 64:
+            # Jika panjang bin_string sudah 64, langsung ke tahapan DES Key Generation
+            st.subheader("Tahapan DES Key Generation")
 
-        if plaintext:
             # Membuat instance DES dengan kunci
-            my_des = DES(string_to_bin(plaintext))
-            
+            my_des = DES(bin_string)
+
+            # Menerapkan Permutasi Pilihan 1 ke PLAINTEXT
+            permuted_plaintext = my_des.permuted_choice_1(my_des.key)
+
+            # Menampilkan PLAINTEXT setelah permutasi
+            st.write("PLAINTEXT setelah PC-1:", " ".join([permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]))
+
+            # Memisahkan PLAINTEXT menjadi per 8 bit
+            plaintext_8bit = [permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]
+            st.write("PLAINTEXT per 8 bit:", plaintext_8bit)
+
             # Menampilkan tahapan C0 dan D0
             st.subheader("Tahapan C0 dan D0")
             C0, D0 = my_des.permuted_choice_1(my_des.key)[:28], my_des.permuted_choice_1(my_des.key)[28:]
@@ -101,28 +94,30 @@ def main():
             CD_list = []
             for round_number in range(16):
                 # Melakukan pergeseran bit pada C0 dan D0 untuk setiap ronde
-                C0 = my_des.shift(C0, shift_table, round_number)
-                D0 = my_des.shift(D0, shift_table, round_number)
+                C0 = my_des.shift(C0, [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1], round_number)
+                D0 = my_des.shift(D0, [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1], round_number)
                 CD = C0 + D0
                 CD_list.append(CD)
                 st.write(f"CD{round_number+1}:", CD)
                 st.write(f"CD{round_number+1}  per 8 bit:", ' '.join(list(chunks(CD, 8))))
 
-        # Membuat list untuk menyimpan K
-        # Menampilkan tahapan CD1-16
-        st.subheader("Tahapan K1-16")
-        K_list = []
-        for round_number in range(16):
-            # Melakukan pergeseran bit pada PLAINTEXT untuk setiap ronde
-            permuted_plaintext = my_des.shift(permuted_plaintext, shift_table, round_number)
+         
 
-            # Menerapkan Permutasi Pilihan 2 ke PLAINTEXT dan menyimpannya dalam K_list
-            K = my_des.permuted_choice_2(permuted_plaintext)
-            K_list.append(K)
-            st.write(f"K{round_number+1}:", K_list[round_number])
-
-            st.write(f"K{round_number+1} per 8 bit:", ' '.join(list(chunks(K, 8))))
-
+                # Membuat list untuk menyimpan K
+                # Menampilkan tahapan CD1-16
+                st.subheader("Tahapan K1-16")
+                K_list = []
+                for round_number in range(16):
+                    # Melakukan pergeseran bit pada PLAINTEXT untuk setiap ronde
+                    permuted_plaintext = my_des.shift(permuted_plaintext, shift_table, round_number)
+        
+                    # Menerapkan Permutasi Pilihan 2 ke PLAINTEXT dan menyimpannya dalam K_list
+                    K = my_des.permuted_choice_2(permuted_plaintext)
+                    K_list.append(K)
+                    st.write(f"K{round_number+1}:", K_list[round_number])
+        
+                    st.write(f"K{round_number+1} per 8 bit:", ' '.join(list(chunks(K, 8))))
+        
 
 if __name__ == "__main__":
     main()
