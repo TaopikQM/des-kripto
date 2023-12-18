@@ -220,7 +220,7 @@ def main():
                 st.write(ascii_result)
         
                 bin_string = string_to_biin(my_string)
-                if plaintext and len(plaintext) == 64:
+                if my_string and len(my_string) == 64:
                     # Displaying plaintext after Initial Permutation
                     st.subheader("Plaintext after IP:")
                     permuted_plaintext = my_des.initial_permutation(plaintext)
