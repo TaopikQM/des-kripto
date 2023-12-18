@@ -304,6 +304,20 @@ def main():
                        # blocks[i] = substituted_block
                     
 
+                    # Split hasil substitusi S-box menjadi 6-bit blok
+                    blocks_after_substitution = [substituted_block[i:i + 6] for substituted_block in blocks for i in range(0, len(substituted_block), 6)]
+                    
+                    # Tampilkan semua blok setelah substitusi S-box dalam satu baris
+                    st.subheader("Blocks after S-box substitution:")
+                    st.write(" ".join(blocks_after_substitution))
+                    
+                    # Split XOR result into 6-bit blocks
+                    xor_blocks = [xor_result[i:i + 6] for i in range(0, len(xor_result), 6)]
+                    
+                    # Tampilkan semua blok setelah operasi XOR dalam satu baris
+                    st.subheader("Blocks after XOR:")
+                    st.write(" ".join(xor_blocks))
+
                     
                     # Split hasil substitusi menjadi 6-bit blok
                     blocks = [blocks[i:i + 6] for i in range(0, len(blocks), 6)]
