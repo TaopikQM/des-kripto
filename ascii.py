@@ -47,7 +47,7 @@ def chunks(s, n):
         yield s[start:start+n]
 
     
-    def initial_permutation(self):
+     def initial_permutation(self, plaintext):
         # Tabel Initial Permutation (IP)
         IP = [58, 50, 42, 34, 26, 18, 10, 2,
               60, 52, 44, 36, 28, 20, 12, 4,
@@ -57,11 +57,9 @@ def chunks(s, n):
               59, 51, 43, 35, 27, 19, 11, 3,
               61, 53, 45, 37, 29, 21, 13, 5,
               63, 55, 47, 39, 31, 23, 15, 7]
-
         permuted_plaintext = ""
         for index in IP:
-            permuted_plaintext += self.plaintext[index - 1]
-
+            permuted_plaintext += plaintext[index - 1]
         return permuted_plaintext
 
     def expansion(self, bit_string):
