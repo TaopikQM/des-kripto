@@ -77,12 +77,6 @@ class DES:
         # Melakukan operasi XOR pada dua string bit
         return ''.join(str(int(b1) ^ int(b2)) for b1, b2 in zip(bit_string1, bit_string2))
 
-    def s_box_substitution(self, block, s_box):
-        # Melakukan substitusi pada blok dengan S-Box
-        row = int(block[0] + block[5], 2)
-        col = int(block[1:5], 2)
-        return format(s_box[row][col], '04b')
-
     def permutation(self, bit_string):
         # Tabel Fungsi P
         P = [
