@@ -151,6 +151,9 @@ class DES:
                 [2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11]
             ]
         ]
+        row = int(bit_string[0] + bit_string[5], 2)
+        col = int(bit_string[1:5], 2)
+        return format(S_Boxes[i][row][col], '04b') 
 
 def string_to_bin(input):
     return ''.join(format(ord(i), '08b') for i in input)
@@ -282,9 +285,13 @@ def main():
                     xor_result = my_des.xor(expanded_R0, my_des.key)
                     st.subheader("XOR Result (E(R0) and Key):")
                     st.write(xor_result)
-        
+
+                    for i in range(len(blocks)):
+                    block = blocks[i]
+                    substituted_block = "".join([my_des.s_box_substitution(block[j:j + 6]) for j in range(0, len(block), 6)])
+                    blocks[i] = substituted_block
                     # Split XOR result into 6-bit blocks
-                    blocks = [xor_result[i:i + 6] for i in range(0, len(xor_result), 6)]
+                    #blocks = [xor_result[i:i + 6] for i in range(0, len(xor_result), 6)]
         
                     # Display all blocks in one line
                     st.subheader("Blocks after XOR:")
