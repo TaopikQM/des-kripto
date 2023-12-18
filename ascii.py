@@ -38,6 +38,9 @@ class DES:
 
     def string_to_bin(input):
         return ''.join(format(ord(i), '08b') for i in input)
+
+    def string_to_biin(input):
+        return ''.join(format(ord(i), '08b') for i in input)
     
     def chunks(s, n):
         for start in range(0, len(s), n):
@@ -217,7 +220,7 @@ def main():
         ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
         st.write(ascii_result)
     
-        bin_string = string_to_bin(my_string)
+        bin_string = string_to_biin(my_string)
         if plaintext and len(plaintext) == 64:
             # Displaying plaintext after Initial Permutation
             st.subheader("Plaintext after IP:")
