@@ -38,6 +38,9 @@ class DES:
 
 def string_to_bin(input):
     return ''.join(format(ord(i), '08b') for i in input)
+
+def string_to_biin(input):
+    return ''.join(format(ord(i), '08b') for i in input)
        
 def chunks(s, n):
     for start in range(0, len(s), n):
@@ -206,6 +209,147 @@ def main():
             st.subheader("Tahapan Initial Permutation (IP)")
             initial_perm_result = my_des.initial_permutation(bin_string)
             st.write("IP per 8 bit:", ' '.join(list(chunks(initial_perm_result, 8))))
+
+ #TAHAPAN PLAITEXT KE BINNER ASCII
+            st.title("String to Binary Converter / DES PLAINTEXT Generation")
+        
+            if st.button("Refresh"):
+                st.caching.clear_cache()
+        
+            my_string = st.text_input("Masukkan PLAINTEXT Anda:")
+        
+            if my_string:
+                # Menampilkan hasil ASCII dari string yang dimasukkan
+                st.subheader("Hasil ASCII:")
+                ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
+                st.write(ascii_result)
+        
+                bin_string = DES.string_to_biin(my_string)
+                if plaintext and len(plaintext) == 64:
+                    # Displaying plaintext after Initial Permutation
+                    st.subheader("Plaintext after IP:")
+                    permuted_plaintext = my_des.initial_permutation(plaintext)
+                    st.write(permuted_plaintext)
+        
+                    # Split permuted_plaintext into 8-bit chunks
+                    permuted_plaintext_8bit = [permuted_plaintext[i:i + 8] for i in range(0, len(permuted_plaintext), 8)]
+                    st.subheader("Plaintext after IP per 8 bits:")
+                    st.write(permuted_plaintext_8bit)
+        
+                    # Split plaintext into L0 and R0
+                    L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
+        
+                    # Set R0 to L1
+                    L1 = R0
+        
+                    # Expand R0 with E table
+                    expanded_R0 = my_des.expansion(R0)
+        
+                    # Display L0, R0, L1, E(R0)
+                    st.subheader("L0:")
+                    st.write(L0)
+                    st.subheader("R0:")
+                    st.write(R0)
+                    st.subheader("L1:")
+                    st.write(L1)
+                    st.subheader("E(R0):")
+                    st.write(expanded_R0)
+        
+                    # Split expanded_R0 into 8-bit chunks
+                    expanded_R0_8bit = [expanded_R0[i:i + 8] for i in range(0, len(expanded_R0), 8)]
+                    st.subheader("E(R0) per 8 bits:")
+                    st.write(expanded_R0_8bit)
+        
+                    # Input key in binary form from the user
+                    my_des.key = st.text_input("Enter the key (K1):", key)
+        
+                    # XOR R0 after expansion with the key
+                    xor_result = my_des.xor(expanded_R0, my_des.key)
+                    st.subheader("XOR Result (E(R0) and Key):")
+                    st.write(xor_result)
+        
+                    # Split XOR result into 6-bit blocks
+                    blocks = [xor_result[i:i + 6] for i in range(0, len(xor_result), 6)]
+        
+                    # Display all blocks in one line
+                    st.subheader("Blocks after XOR:")
+                    st.write(" ".join(blocks))
+        
+                    # Display each block
+                    for i, block in enumerate(blocks):
+                        st.write(f"Block {i+1}:", block)
+        
+                    # Substitute each block with the corresponding S-Box
+                    for i, block in enumerate(blocks):
+                        blocks[i] = my_des.s_box_substitution(block, S_Boxes[i])
+        
+                    # Display blocks after substitution
+                    st.subheader("Blocks after substitution:")
+                    st.write(blocks)
+        
+                    # Combine all blocks into one bit string
+                    substituted_result = "".join(blocks)
+        
+                    # Display substitution result and permutation result
+                    st.subheader("Substitution Result:")
+                    st.write(substituted_result)
+        
+                    # Permute the result with the P table
+                    permuted_result = my_des.permutation(substituted_result)
+        
+                    st.subheader("Permutation Result:")
+                    st.write(permuted_result)
+        
+                    # Split permuted_result into 4-bit chunks
+                    permuted_result_4bit = [permuted_result[i:i + 4] for i in range(0, len(permuted_result), 4)]
+        
+                    st.subheader("Permutation Result per 4 bits:")
+                    st.write(permuted_result_4bit)
+        
+                    # XOR permuted_result with L0
+                    xor_result = my_des.xor(permuted_result, L0)
+        
+                    st.subheader("XOR Result (Permutation and L0):")
+                    st.write(xor_result)
+        
+                    # Split XOR result into 4-bit chunks
+                    xor_result_4bit = [xor_result[i:i + 4] for i in range(0, len(xor_result), 4)]
+        
+                    st.subheader("XOR Result per 4 bits:")
+                    st.write(xor_result_4bit)
+        
+                    # Apply P-Box to the XOR result
+                    final_result = my_des.permutation(xor_result)
+        
+                    st.subheader("Final Result after P-Box:")
+                    st.write(final_result)
+        
+                    # Split final_result into 4-bit chunks
+                    final_result_4bit = [final_result[i:i + 4] for i in range(0, len(final_result), 4)]
+        
+                    st.subheader("Final Result after P-Box per 4 bits:")
+                    st.write(final_result_4bit)
+        
+                    # Set L1 to R1
+                    R1 = L1
+        
+                    # Display L1 and R1
+                    st.subheader("L1:")
+                    st.write(L1)
+                    st.subheader("R1:")
+                    st.write(R1)
+        
+                    # XOR R1 with the result after P-Box
+                    new_L1 = my_des.xor(R1, final_result)
+        
+                    st.subheader("L1 after XOR:")
+                    st.write(new_L1)
+        
+                    # Display the final encryption result
+                    ciphertext = R1 + new_L1
+                    st.subheader("Final Encryption Result:")
+                    st.write(ciphertext)
+
 
 if __name__ == "__main__":
     main()
