@@ -36,12 +36,12 @@ class DES:
     def shift(self, bit_string, shift_table, round_number):
         return bit_string[shift_table[round_number]:] + bit_string[:shift_table[round_number]]
 
-   def string_to_bin(input):
-        return ''.join(format(ord(i), '08b') for i in input)
-
-    def chunks(s, n):
-        for start in range(0, len(s), n):
-            yield s[start:start+n]
+def string_to_bin(input):
+    return ''.join(format(ord(i), '08b') for i in input)
+       
+def chunks(s, n):
+    for start in range(0, len(s), n):
+        yield s[start:start+n]
 
     
     def initial_permutation(self, plaintext):
