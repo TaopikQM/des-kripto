@@ -72,7 +72,7 @@ def main():
             permuted_plaintext = my_des.permuted_choice_1(my_des.key)
 
             # Menampilkan PLAINTEXT setelah permutasi
-            st.write("PLAINTEXT setelah PC-1:".join([permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]))
+            print("Plaintext setelah PC-1:", permuted_plaintext)
              # Menampilkan PLAINTEXT setelah permutasi 8BIT
             st.write("PC-1 per 8 bit:", " ".join([permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]))
 
