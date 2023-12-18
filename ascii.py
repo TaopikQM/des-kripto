@@ -165,7 +165,7 @@ class DES:
 def main():
     st.title("String to Binary Converter / DES Key Generation")
 
-    if st.button("Refresh"):
+    if st.button("Refresh KEY"):
         st.caching.clear_cache()
 
     my_string = st.text_input("Masukkan KEY Anda:")
