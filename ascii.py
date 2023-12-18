@@ -80,6 +80,26 @@ def main():
             # Membuat instance DES dengan kunci
             my_des = DES(plaintext)
 
+            # Tabel iterasi untuk pergeseran bit
+            shift_table = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1]
+
+            # Menampilkan tahapan C0 dan D0
+            st.subheader("Tahapan C0 dan D0")
+            C0, D0 = my_des.permuted_choice_1(plaintext)[:28], my_des.permuted_choice_1(plaintext)[28:]
+            st.write("C0:", C0)
+            st.write("D0:", D0)
+
+            # Menampilkan tahapan CD1-16
+            st.subheader("Tahapan CD1-16")
+            CD_list = []
+            for round_number in range(16):
+                # Melakukan pergeseran bit pada C0 dan D0 untuk setiap ronde
+                C0 = my_des.shift(C0, shift_table, round_number)
+                D0 = my_des.shift(D0, shift_table, round_number)
+                CD = C0 + D0
+                CD_list.append(CD)
+                st.write(f"CD{round_number+1}:", CD)
+
             # Menerapkan Permutasi Pilihan 1 ke PLAINTEXT
             permuted_plaintext = my_des.permuted_choice_1(plaintext)
 
@@ -89,9 +109,6 @@ def main():
             # Memisahkan PLAINTEXT menjadi per 8 bit
             plaintext_8bit = [permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]
             st.write("PLAINTEXT per 8 bit:", plaintext_8bit)
-
-            # Tabel iterasi untuk pergeseran bit
-            shift_table = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1]
 
             # Membuat list untuk menyimpan K
             K_list = []
