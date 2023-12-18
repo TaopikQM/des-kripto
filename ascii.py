@@ -151,16 +151,26 @@ class DES:
                 permuted_bit_string += bit_string[index - 1]
         return permuted_bit_string
 
-    def s_box_substitution(self, bit_string, s_box_index):
+      def s_box_substitution(bit_string, s_box_index):
+          # Pastikan bit_string memiliki panjang minimal 6 karakter
+          if len(bit_string) < 6:
+              raise ValueError("bit_string harus memiliki panjang minimal 6 karakter")
+          
+          # Lakukan substitusi sesuai dengan indeks yang diinginkan
+          row = int(bit_string[0] + bit_string[5], 2)
+          col = int(bit_string[1:5], 2)
+              
+          return format(S_Boxes[s_box_index][row][col], '04b')
+    #def s_box_substitution(self, bit_string, s_box_index):
         # Pastikan bit_string memiliki panjang minimal 6 karakter
-        if len(bit_string) < 6:
-            raise ValueError("bit_string harus memiliki panjang minimal 6 karakter")
+     #   if len(bit_string) < 6:
+      #      raise ValueError("bit_string harus memiliki panjang minimal 6 karakter")
     
         # Lakukan substitusi sesuai dengan indeks yang diinginkan
-        row = int(bit_string[0] + bit_string[5], 2)
-        col = int(bit_string[1:5], 2)
+       # row = int(bit_string[0] + bit_string[5], 2)
+        #col = int(bit_string[1:5], 2)
         
-        return format(S_Boxes[s_box_index][row][col], '04b')
+        #return format(S_Boxes[s_box_index][row][col], '04b')
         #row = int(bit_string[0] + bit_string[5], 2)
         #col = int(bit_string[1:5], 2)
         #return format(S_Boxes[s_box_index][row][col], '04b')  # 4-bit binary representation
