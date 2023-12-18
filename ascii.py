@@ -225,6 +225,9 @@ def main():
         
                 bin_string = string_to_biin(my_string)
                 if len(my_string) == 64:
+                    st.subheader("Tahapan DES PLAINTEXT Generation")
+
+                    my_des = DES(bin_string)
                     # Displaying plaintext after Initial Permutation
                     st.subheader("Plaintext after IP:")
                     permuted_plaintext = my_des.initial_permutation(plaintext)
