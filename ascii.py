@@ -206,9 +206,7 @@ def main():
                 K_list.append(K)
                 st.write(f"K{round_number+1} per 8 bit:", ' '.join(list(chunks(K, 8))))
 
-            st.subheader("Tahapan Initial Permutation (IP)")
-            initial_perm_result = my_des.initial_permutation(bin_string)
-            st.write("IP per 8 bit:", ' '.join(list(chunks(initial_perm_result, 8))))
+           
 
  #TAHAPAN PLAITEXT KE BINNER ASCII
             st.title("String to Binary Converter / DES PLAINTEXT Generation")
