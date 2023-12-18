@@ -70,6 +70,7 @@ def main():
             for chunk in bin_chunks:
                 st.write(chunk)
             # Mencetak blok 8 bit dengan spasi
+            st.subheader("Hasil ASCII:")
             st.write("Hasil ASCII per 8 bit:")ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
             st.write(ascii_result)
             
