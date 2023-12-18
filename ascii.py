@@ -297,6 +297,17 @@ def main():
                         st.write(f"Block {i + 1}: {block}")
 
                     #INI SETELAH SBLOCK
+                    # Melakukan substitusi pada setiap blok dengan S-Box yang sesuai
+                    for i, block in enumerate(blocks):
+                        # Lakukan substitusi dengan S-Box ke-i
+                        blocks[i] = my_des.s_box_substitution(block, S_Boxes[i])
+                    
+                    # Menampilkan blok setelah substitusi
+                    print("Blok setelah substitusi:", blocks)
+                    
+                    # Menggabungkan semua blok menjadi satu string bit
+                    substituted_result = "".join(blocks)
+                    print("Hasil akhir setelah substitusi:", substituted_result)
                     # Split XOR result into 6-bit blocks
                     blocks = [xor_result[i:i + 6] for i in range(0, len(xor_result), 6)]
                     
