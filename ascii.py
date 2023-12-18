@@ -11,34 +11,35 @@ def string_to_bin(input):
 def main():
     st.title("String to Binary Converter")
 
-    # Meminta input dari pengguna
-    my_string = st.text_input("Masukkan KEY Anda:")
+    # Meminta input dari pengguna untuk KEY
+    key = st.text_input("Masukkan KEY Anda:")
 
-    if my_string:
-        # Mengubah string menjadi representasi biner
-        bin_string = string_to_bin(my_string)
+    if key:
+        # Mengubah KEY menjadi representasi biner
+        bin_key = string_to_bin(key)
 
-        # Memisahkan string biner menjadi blok 8 bit
-        bin_chunks = list(chunks(bin_string, 8))
+        # Memisahkan string biner KEY menjadi blok 8 bit
+        bin_chunks_key = list(chunks(bin_key, 8))
 
-        # Mencetak blok 8 bit
+        # Mencetak blok 8 bit untuk KEY
         st.write("Hasil K:")
-        for chunk in bin_chunks:
-            st.write(chunk)
+        for chunk_key in bin_chunks_key:
+            st.write(chunk_key)
 
-     # Meminta input dari pengguna
-    my_string = st.text_input("Masukkan PLAINTEXT Anda:")
+    # Meminta input dari pengguna untuk PLAINTEXT
+    plaintext = st.text_input("Masukkan PLAINTEXT Anda:")
 
-     if my_stringG:
-        # Mengubah string menjadi representasi biner
-        bin_stringG = string_to_bin(my_stringG)
+    if plaintext:
+        # Mengubah PLAINTEXT menjadi representasi biner
+        bin_plaintext = string_to_bin(plaintext)
 
-        # Memisahkan string biner menjadi blok 8 bit
-        bin_chunksG = list(chunks(bin_stringG, 8))
+        # Memisahkan string biner PLAINTEXT menjadi blok 8 bit
+        bin_chunks_plaintext = list(chunks(bin_plaintext, 8))
 
-        # Mencetak blok 8 bit
+        # Mencetak blok 8 bit untuk PLAINTEXT
         st.write("Hasil P:")
-        for chunkG in bin_chunksG:
-            st.write(chunkG)
+        for chunk_plaintext in bin_chunks_plaintext:
+            st.write(chunk_plaintext)
+
 if __name__ == "__main__":
     main()
