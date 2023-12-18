@@ -239,18 +239,10 @@ def main():
                     st.subheader("Plaintext setelah IP:")
                     st.write(permuted_plaintext)
 
-                    # Memisahkan permuted_plaintext menjadi per 8 bit
-                    permuted_plaintext_8bit = [permuted_plaintext[i:i + 8] for i in range(0, len(permuted_plaintext), 8)]
-                    st.subheader("Plaintext setelah IP per 8 bit:")
-                    st.write(permuted_plaintext_8bit)
-
-
-
-        
-                    # Split permuted_plaintext into 8-bit chunks
-                    permuted_plaintext_8bit = [permuted_plaintext[i:i + 8] for i in range(0, len(permuted_plaintext), 8)]
-                    st.subheader("Plaintext after IP per 8 bits:")
-                    st.write(permuted_plaintext_8bit)
+                    # Memisahkan permuted_plaintext dengan spasi setiap 8 bit
+                    permuted_plaintext_spaced = ' '.join([permuted_plaintext[i:i + 8] for i in range(0, len(permuted_plaintext), 8)])
+                    st.subheader("Plaintext setelah IP per 8 bit (dengan spasi):")
+                    st.write(permuted_plaintext_spaced)
         
                     # Split plaintext into L0 and R0
                     L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
@@ -260,21 +252,28 @@ def main():
         
                     # Expand R0 with E table
                     expanded_R0 = my_des.expansion(R0)
-        
+
+                    # Display L0, R0, L1, E(R0) dengan spasi setiap 8 bit
+
                     # Display L0, R0, L1, E(R0)
                     st.subheader("L0:")
                     st.write(L0)
+                    st.subheader("L0 per 8 bit:")
+                    st.write(' '.join([L0[i:i + 8] for i in range(0, len(L0), 8)]))
                     st.subheader("R0:")
                     st.write(R0)
+                    st.subheader("R0 per 8 bit:")
+                    st.write(' '.join([R0[i:i + 8] for i in range(0, len(R0), 8)]))
                     st.subheader("L1:")
                     st.write(L1)
+                    st.subheader("L1 per 8 bit:")
+                    st.write(' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
                     st.subheader("E(R0):")
                     st.write(expanded_R0)
-        
-                    # Split expanded_R0 into 8-bit chunks
-                    expanded_R0_8bit = [expanded_R0[i:i + 8] for i in range(0, len(expanded_R0), 8)]
-                    st.subheader("E(R0) per 8 bits:")
-                    st.write(expanded_R0_8bit)
+                    st.subheader("E(R0 per 8 bit):")
+                    st.write(' '.join([expanded_R0[i:i + 8] for i in range(0, len(expanded_R0), 8)]))
+                   
+                    key = CD_list[0]
         
                     # Input key in binary form from the user
                     my_des.key = st.text_input("Enter the key (K1):", key)
