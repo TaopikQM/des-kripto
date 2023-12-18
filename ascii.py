@@ -91,7 +91,7 @@ class DES:
                 permuted_bit_string += bit_string[index - 1]
         return permuted_bit_string
 
-    def s_box_substitution(self, bit_string):
+    def s_box_substitution(self, bit_string, s_box_index):
         # S-Box Tables
         S_Boxes = [
             # S1
