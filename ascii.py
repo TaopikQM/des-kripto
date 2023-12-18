@@ -297,6 +297,16 @@ def main():
                         st.write(f"Block {i + 1}: {block}")
 
                     #INI SETELAH SBLOCK
+                    # Split XOR result into 6-bit blocks
+                    blocks = [xor_result[i:i + 6] for i in range(0, len(xor_result), 6)]
+                    
+                    # Apply S-box substitution to each 6-bit block
+                    s_box_substituted_blocks = [my_des.s_box_substitution(block, s_box_index) for block in blocks]
+                    
+                    # Display the S-box substituted blocks
+                    st.subheader("Blocks after S-box substitution:")
+                    for i, block in enumerate(s_box_substituted_blocks, start=1):
+                        st.write(f"Block {i}: {block}")
                     substituted_blocks = []
                     for block_number in range(len(blocks)):
                         block = blocks[block_number]
