@@ -164,6 +164,10 @@ def main():
     st.title("String to Binary Converter / DES Key Generation")
 
     if st.button("Refresh"):
+       
+        st.write("Proses caching akan dihapus.")
+    
+        # Menghapus cache (pastikan ini diperlukan di sini)
         st.caching.clear_cache()
 
     my_string = st.text_input("Masukkan String atau PLAINTEXT Anda:")
