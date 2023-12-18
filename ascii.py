@@ -153,7 +153,7 @@ class DES:
         ]
         row = int(bit_string[0] + bit_string[5], 2)
         col = int(bit_string[1:5], 2)
-        return format(S_Boxes[i][row][col], '04b') 
+        return format(S_Boxes[i][row][col], '04b')  # 4-bit binary representation
 
 def string_to_bin(input):
     return ''.join(format(ord(i), '08b') for i in input)
@@ -281,15 +281,18 @@ def main():
                     # Input key in binary form from the user
                     my_des.key = st.text_input("Enter the key (K1):", key)
         
-                    # XOR R0 after expansion with the key
-                    xor_result = my_des.xor(expanded_R0, my_des.key)
-                    st.subheader("XOR Result (E(R0) and Key):")
-                    st.write(xor_result)
-
+                   # Substitusi S-box untuk setiap blok
                     for i in range(len(blocks)):
                         block = blocks[i]
                         substituted_block = "".join([my_des.s_box_substitution(block[j:j + 6]) for j in range(0, len(block), 6)])
                         blocks[i] = substituted_block
+                    
+                    # Split hasil substitusi menjadi 6-bit blok
+                    blocks = [blocks[i:i + 6] for i in range(0, len(blocks), 6)]
+                    
+                    # Tampilkan semua blok dalam satu baris
+                    st.subheader("Blocks after S-box substitution:")
+                    st.write(" ".join(blocks))
                     # Split XOR result into 6-bit blocks
                     #blocks = [xor_result[i:i + 6] for i in range(0, len(xor_result), 6)]
         
