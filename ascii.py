@@ -273,7 +273,7 @@ def main():
                     st.subheader("E(R0 per 8 bit):")
                     st.write(' '.join([expanded_R0[i:i + 8] for i in range(0, len(expanded_R0), 8)]))
                    
-                    key = CD_list[0]
+                    key = K_list[0]
         
                     # Input key in binary form from the user
                     my_des.key = st.text_input("Enter the key (K1):", key)
