@@ -285,7 +285,8 @@ def main():
                     xor_result = my_des.xor(expanded_R0, my_des.key)
                     st.subheader("XOR Result (E(R0) and Key):")
                     st.write(xor_result)
-        
+
+                    blocks = []
                    # Substitusi S-box untuk setiap blok
                     for i in range(len(blocks)):
                         block = blocks[i]
