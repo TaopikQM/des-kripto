@@ -172,7 +172,7 @@ def main():
 
     if my_string:
         # Menampilkan hasil ASCII dari string yang dimasukkan
-        st.subheader("Hasil ASCII:")
+        st.subheader("Hasil ASCIIA:")
         ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
         st.write(ascii_result)
 
