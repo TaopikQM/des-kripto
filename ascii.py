@@ -92,12 +92,17 @@ def main():
             # Memisahkan PLAINTEXT menjadi per 8 bit
             plaintext_8bit = [permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]
             st.write("PLAINTEXT per 8 bit:", plaintext_8bit)
+            st.write(f"permuted_plaintext{round_number+1}:", ' '.join(list(chunks(permuted_plaintext, 8))))
+
             
             # Menampilkan tahapan C0 dan D0
             st.subheader("Tahapan C0 dan D0")
             C0, D0 = my_des.permuted_choice_1(plaintext)[:28], my_des.permuted_choice_1(plaintext)[28:]
             st.write("C0:", C0)
+            st.write(f"C0{round_number+1}:", ' '.join(list(chunks(C0, 8))))
             st.write("D0:", D0)
+            st.write(f"D0{round_number+1}:", ' '.join(list(chunks(D0, 8))))
+
 
             # Menampilkan tahapan CD1-16
             st.subheader("Tahapan CD1-16")
@@ -109,10 +114,11 @@ def main():
                 CD = C0 + D0
                 CD_list.append(CD)
                 st.write(f"CD{round_number+1}:", CD)
-
-           
+                st.write(f"CD{round_number+1}:", ' '.join(list(chunks(CD, 8))))
 
             # Membuat list untuk menyimpan K
+            # Menampilkan tahapan CD1-16
+            st.subheader("Tahapan K1-16")
             K_list = []
             for round_number in range(16):
                 # Melakukan pergeseran bit pada PLAINTEXT untuk setiap ronde
@@ -122,6 +128,8 @@ def main():
                 K = my_des.permuted_choice_2(permuted_plaintext)
                 K_list.append(K)
                 st.write(f"K{round_number+1}:", K_list[round_number])
+
+                st.write(f"K{round_number+1}:", ' '.join(list(chunks(K, 8))))
 
                 # Menambahkan perulangan yang sama untuk mencetak K per 8 bit
                 st.write(f"K{round_number+1} per 8 bit:", [K_list[round_number][i:i+8] for i in range(0, len(K_list[round_number]), 8)])
