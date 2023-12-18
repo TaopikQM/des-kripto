@@ -287,9 +287,9 @@ def main():
                     st.write(xor_result)
 
                     for i in range(len(blocks)):
-                    block = blocks[i]
-                    substituted_block = "".join([my_des.s_box_substitution(block[j:j + 6]) for j in range(0, len(block), 6)])
-                    blocks[i] = substituted_block
+                        block = blocks[i]
+                        substituted_block = "".join([my_des.s_box_substitution(block[j:j + 6]) for j in range(0, len(block), 6)])
+                        blocks[i] = substituted_block
                     # Split XOR result into 6-bit blocks
                     #blocks = [xor_result[i:i + 6] for i in range(0, len(xor_result), 6)]
         
