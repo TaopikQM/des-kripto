@@ -211,9 +211,6 @@ def main():
  #TAHAPAN PLAITEXT KE BINNER ASCII
             st.title("String to Binary Converter / DES PLAINTEXT Generation")
         
-            if st.button("Refresh"):
-                st.caching.clear_cache()
-        
             my_string = st.text_input("Masukkan PLAINTEXT Anda:")
         
             if my_string:
