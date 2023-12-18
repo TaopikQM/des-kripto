@@ -89,6 +89,9 @@ def main():
             # Menampilkan PLAINTEXT setelah permutasi
             st.write("PLAINTEXT setelah PC-1:", permuted_plaintext)
 
+            plaintext_pc1_chunks = list(chunks(permuted_plaintext, 8))
+            st.write(" ".join(plaintext_pc1_chunks))
+
             # Memisahkan PLAINTEXT menjadi per 8 bit
             plaintext_8bit = [permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]
             st.write("PLAINTEXT per 8 bit:", plaintext_8bit)
@@ -98,9 +101,12 @@ def main():
             st.subheader("Tahapan C0 dan D0")
             C0, D0 = my_des.permuted_choice_1(plaintext)[:28], my_des.permuted_choice_1(plaintext)[28:]
             st.write("C0:", C0)
-            st.write(f"C0{round_number+1}:", ' '.join(list(chunks(C0, 8))))
+            
+            C0_chunks = list(chunks(C0, 8))
+            st.write("C0:", " ".join(C0_chunks))
             st.write("D0:", D0)
-            st.write(f"D0{round_number+1}:", ' '.join(list(chunks(D0, 8))))
+            D0_chunks = list(chunks(D0, 8))
+            st.write("D0:", " ".join(D0_chunks))
 
 
             # Menampilkan tahapan CD1-16
