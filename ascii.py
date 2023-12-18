@@ -70,8 +70,9 @@ def main():
             for chunk in bin_chunks:
                 st.write(chunk)
             # Mencetak blok 8 bit dengan spasi
-            st.write("Hasil ASCII per 8 bit:")
-            st.write(" ".join(bin_chunks))
+            st.write("Hasil ASCII per 8 bit:")ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
+            st.write(ascii_result)
+            
             
             # Jika panjang bin_string sudah 64, langsung ke tahapan DES Key Generation
             st.subheader("Tahapan DES Key Generation")
