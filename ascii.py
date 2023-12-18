@@ -83,6 +83,16 @@ def main():
             # Tabel iterasi untuk pergeseran bit
             shift_table = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1]
 
+             # Menerapkan Permutasi Pilihan 1 ke PLAINTEXT
+            permuted_plaintext = my_des.permuted_choice_1(plaintext)
+
+            # Menampilkan PLAINTEXT setelah permutasi
+            st.write("PLAINTEXT setelah PC-1:", permuted_plaintext)
+
+            # Memisahkan PLAINTEXT menjadi per 8 bit
+            plaintext_8bit = [permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]
+            st.write("PLAINTEXT per 8 bit:", plaintext_8bit)
+            
             # Menampilkan tahapan C0 dan D0
             st.subheader("Tahapan C0 dan D0")
             C0, D0 = my_des.permuted_choice_1(plaintext)[:28], my_des.permuted_choice_1(plaintext)[28:]
@@ -100,15 +110,7 @@ def main():
                 CD_list.append(CD)
                 st.write(f"CD{round_number+1}:", CD)
 
-            # Menerapkan Permutasi Pilihan 1 ke PLAINTEXT
-            permuted_plaintext = my_des.permuted_choice_1(plaintext)
-
-            # Menampilkan PLAINTEXT setelah permutasi
-            st.write("PLAINTEXT setelah PC-1:", permuted_plaintext)
-
-            # Memisahkan PLAINTEXT menjadi per 8 bit
-            plaintext_8bit = [permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]
-            st.write("PLAINTEXT per 8 bit:", plaintext_8bit)
+           
 
             # Membuat list untuk menyimpan K
             K_list = []
