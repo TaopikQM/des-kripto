@@ -153,7 +153,7 @@ class DES:
         ]
         row = int(bit_string[0] + bit_string[5], 2)
         col = int(bit_string[1:5], 2)
-        return format(S_Boxes[i][row][col], '04b')  # 4-bit binary representation
+        return format(S_Boxes[s_box_index][row][col], '04b')  # 4-bit binary representation
 
 def string_to_bin(input):
     return ''.join(format(ord(i), '08b') for i in input)
@@ -297,6 +297,19 @@ def main():
                         st.write(f"Block {i + 1}: {block}")
 
                     #INI SETELAH SBLOCK
+                    # Melakukan substitusi pada setiap blok dengan S-Box yang sesuai
+                    for i, block in enumerate(xor_blocks):
+                        # Pastikan indeks tidak melebihi panjang S_Boxes
+                        s_box_index = i % len(S_Boxes)
+                        xor_blocks[i] = my_des.s_box_substitution(block, s_box_index)
+                
+                    # Menampilkan blok setelah substitusi
+                    print("Blok setelah substitusi:", xor_blocks)
+                
+                    # Menggabungkan semua blok menjadi satu string bit
+                    substituted_result = "".join(xor_blocks)
+                    print("Hasil akhir setelah substitusi:", substituted_result)
+                    
                     # Melakukan substitusi pada setiap blok dengan S-Box yang sesuai
                     for i, block in enumerate(xor_blocks):
                         xor_blocks[i] = my_des.s_box_substitution(block, S_Boxes[i])
