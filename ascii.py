@@ -217,7 +217,7 @@ def main():
         
             my_string = st.text_input("Masukkan PLAINTEXT Anda:")
         
-           if my_string:
+            if my_string:
                 # Menampilkan hasil ASCII dari string yang dimasukkan
                 st.subheader("Hasil ASCII:")
                 ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
