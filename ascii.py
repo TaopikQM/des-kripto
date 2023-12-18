@@ -295,7 +295,18 @@ def main():
                     # Tampilkan hasil blok-blok
                     for i, block in enumerate(xor_blocks):
                         st.write(f"Block {i + 1}: {block}")
+
+                    # Lakukan substitusi S-box untuk setiap blok
+                    substituted_blocks = []
+                    for block in blocks:
+                        row = int(block[0] + block[5], 2)  # Ambil bit pertama dan terakhir untuk baris
+                        col = int(block[1:5], 2)  # Ambil 4 bit tengah untuk kolom
+                        substituted_value = S_Boxes[block_number][row][col]  # Ambil nilai substitusi dari tabel S-box
+                        substituted_blocks.append(format(substituted_value, '04b'))  # Konversi nilai menjadi biner 4-bit dan tambahkan ke daftar
                     
+                    # Tampilkan hasil substitusi S-box
+                    st.subheader("Blocks after S-box substitution:")
+                    st.write(" ".join(substituted_blocks))
                     #blocks = []
                    # Substitusi S-box untuk setiap blok
                     #for i in range(len(blocks)):
