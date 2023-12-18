@@ -161,31 +161,31 @@ class DES:
 def main():
     st.title("String to Binary Converter / DES Key Generation")
 
-    if st.button("Refresh KEY"):
+    if st.button("Refresh"):
         st.caching.clear_cache()
 
-    my_string = st.text_input("Masukkan KEY Anda:")
+    my_string = st.text_input("Masukkan String atau PLAINTEXT Anda:")
 
     if my_string:
-        # Menampilkan hasil ASCII dari string yang dimasukkan
         st.subheader("Hasil ASCII:")
-        bin_string = DES.string_to_bin(my_string)
         ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
         st.write(ascii_result)
 
-        my_des = DES(bin_string)
+        bin_string = string_to_bin(my_string)
 
         if len(bin_string) == 64:
             st.subheader("Tahapan DES Key Generation")
 
+            my_des = DES(bin_string)
+
             permuted_plaintext = my_des.permuted_choice_1(my_des.key)
 
-            st.write("PC-1 per 8 bit:", " ".join(list(my_des.chunks(permuted_plaintext, 8))))
+            st.write("PC-1 per 8 bit:", " ".join(list(chunks(permuted_plaintext, 8))))
 
             st.subheader("Tahapan C0 dan D0")
             C0, D0 = my_des.permuted_choice_1(my_des.key)[:28], my_des.permuted_choice_1(my_des.key)[28:]
-            st.write("C0 per 8 bit:", " ".join(list(my_des.chunks(C0, 8))))
-            st.write("D0 per 8 bit:", " ".join(list(my_des.chunks(D0, 8))))
+            st.write("C0 per 8 bit:", " ".join(list(chunks(C0, 8))))
+            st.write("D0 per 8 bit:", " ".join(list(chunks(D0, 8))))
 
             st.subheader("Tahapan CD1-16")
             CD_list = []
@@ -194,7 +194,7 @@ def main():
                 D0 = my_des.shift(D0, [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1], round_number)
                 CD = C0 + D0
                 CD_list.append(CD)
-                st.write(f"CD{round_number+1} per 8 bit:", ' '.join(list(my_des.chunks(CD, 8))))
+                st.write(f"CD{round_number+1} per 8 bit:", ' '.join(list(chunks(CD, 8))))
 
             st.subheader("Tahapan K1-16")
             K_list = []
@@ -202,7 +202,11 @@ def main():
                 permuted_plaintext = my_des.shift(permuted_plaintext, [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1], round_number)
                 K = my_des.permuted_choice_2(permuted_plaintext)
                 K_list.append(K)
-                st.write(f"K{round_number+1} per 8 bit:", ' '.join(list(my_des.chunks(K, 8))))
+                st.write(f"K{round_number+1} per 8 bit:", ' '.join(list(chunks(K, 8))))
+
+            st.subheader("Tahapan Initial Permutation (IP)")
+            initial_perm_result = my_des.initial_permutation(bin_string)
+            st.write("IP per 8 bit:", ' '.join(list(chunks(initial_perm_result, 8))))
 
 if __name__ == "__main__":
     main()
