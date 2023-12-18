@@ -222,18 +222,24 @@ def main():
                 st.subheader("Hasil ASCII:")
                 ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
                 st.write(ascii_result)
-        
-                bin_string = string_to_biin(my_string)
-                if len(my_string) == 64:
+            
+                bin_string = string_to_biin(my_string)  # Pastikan string_to_biin telah didefinisikan
+                if len(bin_string) == 64:  # Gunakan bin_string bukan my_string
                     st.subheader("Tahapan DES PLAINTEXT Generation")
-
+            
                     my_des = DES(bin_string)
                     # Menerapkan Initial Permutation ke plaintext
                     permuted_plaintext = my_des.initial_permutation(my_des.plaintext)
             
-                    # Displaying plaintext after Initial Permutation
-                    st.subheader("Plaintext after IP:")
+                    # Menampilkan plaintext setelah Initial Permutation
+                    st.subheader("Plaintext setelah IP:")
                     st.write(permuted_plaintext)
+            
+                    # Memisahkan permuted_plaintext menjadi per 8 bit
+                    permuted_plaintext_8bit = [permuted_plaintext[i:i + 8] for i in range(0, len(permuted_plaintext), 8)]
+                    st.subheader("Plaintext setelah IP per 8 bit:")
+                    st.write(permuted_plaintext_8bit)
+
         
                     # Split permuted_plaintext into 8-bit chunks
                     permuted_plaintext_8bit = [permuted_plaintext[i:i + 8] for i in range(0, len(permuted_plaintext), 8)]
