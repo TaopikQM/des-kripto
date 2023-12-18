@@ -90,23 +90,18 @@ def main():
             st.write("PLAINTEXT setelah PC-1:", permuted_plaintext)
 
             plaintext_pc1_chunks = list(chunks(permuted_plaintext, 8))
+            st.write("PLAINTEXT per 8 bit:")
             st.write(" ".join(plaintext_pc1_chunks))
-
-            # Memisahkan PLAINTEXT menjadi per 8 bit
-            plaintext_8bit = [permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]
-            st.write("PLAINTEXT per 8 bit:", plaintext_8bit)
-
             
             # Menampilkan tahapan C0 dan D0
             st.subheader("Tahapan C0 dan D0")
             C0, D0 = my_des.permuted_choice_1(plaintext)[:28], my_des.permuted_choice_1(plaintext)[28:]
             st.write("C0:", C0)
-            
             C0_chunks = list(chunks(C0, 8))
-            st.write("C0:", " ".join(C0_chunks))
+            st.write("C0 per 8bit:", " ".join(C0_chunks))
             st.write("D0:", D0)
             D0_chunks = list(chunks(D0, 8))
-            st.write("D0:", " ".join(D0_chunks))
+            st.write("D0 per 8bit:", " ".join(D0_chunks))
 
 
             # Menampilkan tahapan CD1-16
@@ -119,7 +114,7 @@ def main():
                 CD = C0 + D0
                 CD_list.append(CD)
                 st.write(f"CD{round_number+1}:", CD)
-                st.write(f"CD{round_number+1}:", ' '.join(list(chunks(CD, 8))))
+                st.write(f"CD{round_number+1}  per 8bit:", ' '.join(list(chunks(CD, 8))))
 
             # Membuat list untuk menyimpan K
             # Menampilkan tahapan CD1-16
@@ -134,10 +129,8 @@ def main():
                 K_list.append(K)
                 st.write(f"K{round_number+1}:", K_list[round_number])
 
-                st.write(f"K{round_number+1}:", ' '.join(list(chunks(K, 8))))
+                st.write(f"K{round_number+1} per 8 bit:", ' '.join(list(chunks(K, 8))))
 
-                # Menambahkan perulangan yang sama untuk mencetak K per 8 bit
-                st.write(f"K{round_number+1} per 8 bit:", [K_list[round_number][i:i+8] for i in range(0, len(K_list[round_number]), 8)])
 
 if __name__ == "__main__":
     main()
