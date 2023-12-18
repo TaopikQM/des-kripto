@@ -298,6 +298,16 @@ def main():
 
                     #INI SETELAH SBLOCK
                     # Melakukan substitusi pada setiap blok dengan S-Box yang sesuai
+                    for i, block in enumerate(xor_blocks):
+                        xor_blocks[i] = my_des.s_box_substitution(block, S_Boxes[i])
+                    
+                    # Menampilkan blok setelah substitusi
+                    print("Blok setelah substitusi:", xor_blocks)
+                    
+                    # Menggabungkan semua blok menjadi satu string bit
+                    substituted_result = "".join(xor_blocks)
+                    print("Hasil akhir setelah substitusi:", substituted_result)
+                    # Melakukan substitusi pada setiap blok dengan S-Box yang sesuai
                     for i, block in enumerate(blocks):
                         # Lakukan substitusi dengan S-Box ke-i
                         blocks[i] = my_des.s_box_substitution(block, S_Boxes[i])
