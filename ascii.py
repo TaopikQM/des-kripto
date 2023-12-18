@@ -42,11 +42,20 @@ class DES:
 def string_to_bin(input):
     return ''.join(format(ord(i), '08b') for i in input)
 
+def chunks(s, n):
+    """Produce `n`-character chunks from `s`."""
+    for start in range(0, len(s), n):
+        yield s[start:start+n]
+
 def main():
     st.title("String to Binary Converter / DES Key Generation")
 
     # Pilihan untuk memilih antara String to Binary atau DES Key Generation
     option = st.radio("Pilih operasi:", ["String to Binary", "DES Key Generation"])
+
+    # Memasukkan tombol refresh
+    if st.button("Refresh"):
+        st.caching.clear_cache()
 
     if option == "String to Binary":
         # Meminta input dari pengguna untuk String
@@ -57,7 +66,7 @@ def main():
             bin_string = string_to_bin(my_string)
 
             # Memisahkan string biner menjadi blok 8 bit
-            bin_chunks = list(chunks(bin_string, 8))
+            bin_chunks = [bin_string[i:i+8] for i in range(0, len(bin_string), 8)]
 
             # Mencetak blok 8 bit
             st.write("Hasil:")
@@ -90,4 +99,13 @@ def main():
                 # Melakukan pergeseran bit pada PLAINTEXT untuk setiap ronde
                 permuted_plaintext = my_des.shift(permuted_plaintext, shift_table, round_number)
 
-                # Menerapkan Permutasi
+                # Menerapkan Permutasi Pilihan 2 ke PLAINTEXT dan menyimpannya dalam K_list
+                K = my_des.permuted_choice_2(permuted_plaintext)
+                K_list.append(K)
+                st.write(f"K{round_number+1}:", K_list[round_number])
+
+                # Menambahkan perulangan yang sama untuk mencetak K per 8 bit
+                st.write(f"K{round_number+1} per 8 bit:", [K_list[round_number][i:i+8] for i in range(0, len(K_list[round_number]), 8)])
+
+if __name__ == "__main__":
+    main()
