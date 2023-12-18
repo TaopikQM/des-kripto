@@ -38,10 +38,6 @@ class DES:
 
     def string_to_bin(self, input):
         return ''.join(format(ord(i), '08b') for i in input)
-
-    def string_to_biin(self, input):
-        return ''.join(format(ord(i), '08b') for i in input)
-
     
     @staticmethod
     def chunks(s, n):
