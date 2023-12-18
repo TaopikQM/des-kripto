@@ -280,6 +280,11 @@ def main():
         
                     # Input key in binary form from the user
                     my_des.key = st.text_input("Enter the key (K1):", key)
+
+                    # XOR R0 after expansion with the key
+                    xor_result = my_des.xor(expanded_R0, my_des.key)
+                    st.subheader("XOR Result (E(R0) and Key):")
+                    st.write(xor_result)
         
                    # Substitusi S-box untuk setiap blok
                     for i in range(len(blocks)):
