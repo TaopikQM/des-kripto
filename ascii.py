@@ -66,9 +66,9 @@ def main():
             bin_chunks = list(chunks(bin_string, 8))
             
             # Mencetak blok 8 bit tanpa spasi
-            st.write("Hasil ASCII:")
-            for chunk in bin_chunks:
-                st.write(chunk)
+            #st.write("Hasil ASCII:")
+            #for chunk in bin_chunks:
+             #   st.write(chunk)
             # Mencetak blok 8 bit dengan spasi
             st.subheader("Hasil ASCII:")
             st.write("Hasil ASCII per 8 bit:")ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
