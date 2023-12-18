@@ -217,7 +217,7 @@ def main():
         
             my_string = st.text_input("Masukkan PLAINTEXT Anda:")
         
-            if my_string:
+           if my_string:
                 # Menampilkan hasil ASCII dari string yang dimasukkan
                 st.subheader("Hasil ASCII:")
                 ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
@@ -228,6 +228,8 @@ def main():
                     st.subheader("Tahapan DES PLAINTEXT Generation")
             
                     my_des = DES(bin_string)
+                    my_des.plaintext = bin_string  # Pastikan plaintext diatur dengan benar
+            
                     # Menerapkan Initial Permutation ke plaintext
                     permuted_plaintext = my_des.initial_permutation(my_des.plaintext)
             
@@ -239,6 +241,7 @@ def main():
                     permuted_plaintext_8bit = [permuted_plaintext[i:i + 8] for i in range(0, len(permuted_plaintext), 8)]
                     st.subheader("Plaintext setelah IP per 8 bit:")
                     st.write(permuted_plaintext_8bit)
+
 
         
                     # Split permuted_plaintext into 8-bit chunks
