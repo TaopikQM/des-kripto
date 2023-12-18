@@ -1,45 +1,93 @@
 import streamlit as st
 
-def chunks(s, n):
-    """Produce `n`-character chunks from `s`."""
-    for start in range(0, len(s), n):
-        yield s[start:start+n]
+class DES:
+    def __init__(self, key):
+        self.key = key
+
+    def permuted_choice_1(self, key):
+        # Tabel Permutasi Pilihan 1 (PC-1)
+        PC_1 = [57, 49, 41, 33, 25, 17, 9,
+                1, 58, 50, 42, 34, 26, 18,
+                10, 2, 59, 51, 43, 35, 27,
+                19, 11, 3, 60, 52, 44, 36,
+                63, 55, 47, 39, 31, 23, 15,
+                7, 62, 54, 46, 38, 30, 22,
+                14, 6, 61, 53, 45, 37, 29,
+                21, 13, 5, 28, 20, 12, 4]
+        permuted_key = ""
+        for index in PC_1:
+            permuted_key += key[index-1]
+        return permuted_key
+
+    def permuted_choice_2(self, key):
+        # Tabel Permutasi Pilihan 2 (PC-2)
+        PC_2 = [14, 17, 11, 24, 1, 5,
+                3, 28, 15, 6, 21, 10,
+                23, 19, 12, 4, 26, 8,
+                16, 7, 27, 20, 13, 2,
+                41, 52, 31, 37, 47, 55,
+                30, 40, 51, 45, 33, 48,
+                44, 49, 39, 56, 34, 53,
+                46, 42, 50, 36, 29, 32]
+
+        permuted_key = ""
+        for index in PC_2:
+            permuted_key += key[index-1]
+        return permuted_key
+
+    def shift(self, bit_string, shift_table, round_number):
+        # Melakukan pergeseran bit sesuai dengan tabel iterasi
+        return bit_string[shift_table[round_number]:] + bit_string[:shift_table[round_number]]
 
 def string_to_bin(input):
     return ''.join(format(ord(i), '08b') for i in input)
 
 def main():
-    st.title("String to Binary Converter")
+    st.title("String to Binary Converter / DES Key Generation")
 
-    # Meminta input dari pengguna untuk KEY
-    key = st.text_input("Masukkan KEY Anda:")
+    # Pilihan untuk memilih antara String to Binary atau DES Key Generation
+    option = st.radio("Pilih operasi:", ["String to Binary", "DES Key Generation"])
 
-    if key:
-        # Mengubah KEY menjadi representasi biner
-        bin_key = string_to_bin(key)
+    if option == "String to Binary":
+        # Meminta input dari pengguna untuk String
+        my_string = st.text_input("Masukkan String Anda:")
 
-        # Memisahkan string biner KEY menjadi blok 8 bit
-        bin_chunks_key = list(chunks(bin_key, 8))
+        if my_string:
+            # Mengubah String menjadi representasi biner
+            bin_string = string_to_bin(my_string)
 
-        # Mencetak blok 8 bit untuk KEY
-        st.write("Hasil K:")
-        for chunk_key in bin_chunks_key:
-            st.write(chunk_key)
+            # Memisahkan string biner menjadi blok 8 bit
+            bin_chunks = list(chunks(bin_string, 8))
 
-    # Meminta input dari pengguna untuk PLAINTEXT
-    plaintext = st.text_input("Masukkan PLAINTEXT Anda:")
+            # Mencetak blok 8 bit
+            st.write("Hasil:")
+            for chunk in bin_chunks:
+                st.write(chunk)
+    elif option == "DES Key Generation":
+        # Meminta input dari pengguna untuk PLAINTEXT
+        plaintext = st.text_input("Masukkan PLAINTEXT Anda:")
 
-    if plaintext:
-        # Mengubah PLAINTEXT menjadi representasi biner
-        bin_plaintext = string_to_bin(plaintext)
+        if plaintext:
+            # Membuat instance DES dengan kunci
+            my_des = DES(plaintext)
 
-        # Memisahkan string biner PLAINTEXT menjadi blok 8 bit
-        bin_chunks_plaintext = list(chunks(bin_plaintext, 8))
+            # Menerapkan Permutasi Pilihan 1 ke PLAINTEXT
+            permuted_plaintext = my_des.permuted_choice_1(plaintext)
 
-        # Mencetak blok 8 bit untuk PLAINTEXT
-        st.write("Hasil P:")
-        for chunk_plaintext in bin_chunks_plaintext:
-            st.write(chunk_plaintext)
+            # Menampilkan PLAINTEXT setelah permutasi
+            st.write("PLAINTEXT setelah PC-1:", permuted_plaintext)
 
-if __name__ == "__main__":
-    main()
+            # Memisahkan PLAINTEXT menjadi per 8 bit
+            plaintext_8bit = [permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]
+            st.write("PLAINTEXT per 8 bit:", plaintext_8bit)
+
+            # Tabel iterasi untuk pergeseran bit
+            shift_table = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1]
+
+            # Membuat list untuk menyimpan K
+            K_list = []
+            for round_number in range(16):
+                # Melakukan pergeseran bit pada PLAINTEXT untuk setiap ronde
+                permuted_plaintext = my_des.shift(permuted_plaintext, shift_table, round_number)
+
+                # Menerapkan Permutasi
