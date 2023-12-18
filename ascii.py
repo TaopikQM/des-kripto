@@ -92,7 +92,6 @@ def main():
             # Memisahkan PLAINTEXT menjadi per 8 bit
             plaintext_8bit = [permuted_plaintext[i:i+8] for i in range(0, len(permuted_plaintext), 8)]
             st.write("PLAINTEXT per 8 bit:", plaintext_8bit)
-            st.write(f"permuted_plaintext{round_number+1}:", ' '.join(list(chunks(permuted_plaintext, 8))))
 
             
             # Menampilkan tahapan C0 dan D0
