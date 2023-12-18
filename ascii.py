@@ -62,6 +62,17 @@ def main():
         bin_string = string_to_bin(my_string)
 
         if len(bin_string) == 64:
+            # Memisahkan string biner menjadi blok 8 bit
+            bin_chunks = list(chunks(bin_string, 8))
+            
+            # Mencetak blok 8 bit tanpa spasi
+            st.write("Hasil ASCII:")
+            for chunk in bin_chunks:
+                st.write(chunk)
+            # Mencetak blok 8 bit dengan spasi
+            st.write("Hasil ASCII per 8 bit:")
+            st.write(" ".join(bin_chunks))
+            
             # Jika panjang bin_string sudah 64, langsung ke tahapan DES Key Generation
             st.subheader("Tahapan DES Key Generation")
 
