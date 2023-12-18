@@ -43,7 +43,6 @@ def string_to_bin(input):
     return ''.join(format(ord(i), '08b') for i in input)
 
 def chunks(s, n):
-    """Produce `n`-character chunks from `s`."""
     for start in range(0, len(s), n):
         yield s[start:start+n]
 
