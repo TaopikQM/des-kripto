@@ -36,15 +36,7 @@ class DES:
     def shift(self, bit_string, shift_table, round_number):
         return bit_string[shift_table[round_number]:] + bit_string[:shift_table[round_number]]
 
-def string_to_bin(input):
-    return ''.join(format(ord(i), '08b') for i in input)
 
-def string_to_biin(input):
-    return ''.join(format(ord(i), '08b') for i in input)
-       
-def chunks(s, n):
-    for start in range(0, len(s), n):
-        yield s[start:start+n]
 
     
     def initial_permutation(self, plaintext):
@@ -159,6 +151,16 @@ def chunks(s, n):
                 [2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11]
             ]
         ]
+
+def string_to_bin(input):
+    return ''.join(format(ord(i), '08b') for i in input)
+
+def string_to_biin(input):
+    return ''.join(format(ord(i), '08b') for i in input)
+       
+def chunks(s, n):
+    for start in range(0, len(s), n):
+        yield s[start:start+n]
 
 def main():
     st.title("String to Binary Converter / DES Key Generation")
