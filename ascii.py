@@ -220,7 +220,7 @@ def main():
         ascii_result = ' '.join([format(ord(char), '08b') + f" ({char})" for char in my_string])
         st.write(ascii_result)
     
-        bin_string = string_to_biin(my_string)
+        bin_string = DES.string_to_biin(my_string)
         if plaintext and len(plaintext) == 64:
             # Displaying plaintext after Initial Permutation
             st.subheader("Plaintext after IP:")
