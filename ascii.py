@@ -286,6 +286,24 @@ def main():
                     st.subheader("XOR Result (E(R0) and Key):")
                     st.write(xor_result)
 
+                    xor_blocks = []
+
+                    # Pemisahan menjadi 8 blok dengan panjang 6 bit
+                    for i in range(0, len(xor_result), 6):
+                        xor_blocks.append(xor_result[i:i+6])
+                    
+                    # Tampilkan hasil blok-blok
+                    for i, block in enumerate(xor_blocks):
+                        st.write(f"Block {i + 1}: {block}")
+                    
+                    #blocks = []
+                   # Substitusi S-box untuk setiap blok
+                    #for i in range(len(blocks)):
+                     #   block = blocks[i]
+                      #  substituted_block = "".join([my_des.s_box_substitution(block[j:j + 6]) for j in range(0, len(block), 6)])
+                       # blocks[i] = substituted_block
+                    
+
                     
                     # Split hasil substitusi menjadi 6-bit blok
                     blocks = [blocks[i:i + 6] for i in range(0, len(blocks), 6)]
