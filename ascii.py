@@ -158,6 +158,15 @@ def s_box_substitution(bit_string, s_box_index):
     col = int(bit_string[1:5], 2)
         
     return format(S_Boxes[s_box_index][row][col], '04b')
+# Tabel Invers Initial Permutation (IP-1)
+IP_inv = [40, 8, 48, 16, 56, 24, 64, 32,
+          39, 7, 47, 15, 55, 23, 63, 31,
+          38, 6, 46, 14, 54, 22, 62, 30,
+          37, 5, 45, 13, 53, 21, 61, 29,
+          36, 4, 44, 12, 52, 20, 60, 28,
+          35, 3, 43, 11, 51, 19, 59, 27,
+          34, 2, 42, 10, 50, 18, 58, 26,
+          33, 1, 41, 9, 49, 17, 57, 25]
  
 def string_to_bin(input):
     return ''.join(format(ord(i), '08b') for i in input)
@@ -347,25 +356,31 @@ def main():
                     #st.write("Nilai ke-14 dari R1-R16:", ' '.join([nilai_ke_14[i:i + 8] for i in range(0, len(nilai_ke_14), 8)]))
 
                     # Menampilkan nilai L16 dan R16 setelah perulangan
-                    st.subheader("Tahapan L16 DAN R16")
+                    st.subheader("Tahapan L16 dan R16")
                     st.write("Nilai L16 setelah perulangan:", " ".join(list(chunks(L16, 4))))
                     st.write("Nilai R16 setelah perulangan:", " ".join(list(chunks(R16, 4))))
-                    st.subheader("Tahapan R16 DAN L16 DI GABUNG DENGAN DIBALIK R DULUAN")
-                    st.write("R16L16:", " ".join(list(chunks(R16, 8))) + ' ' + " ".join(list(chunks(L16, 8))))
-                    # Misalnya, untuk menampilkan semua nilai R1-R16
-                    #st.write("Semua nilai R1-R16:", all_R_values)
-                    # Setelah perulangan, Anda dapat menggunakan nilai L16 yang disimpan dalam current_L
-                    #L16 = current_L
-                    #st.write("Nilai L16:", ' '.join([L16[i:i + 8] for i in range(0, len(L16), 8)]))
+                    st.subheader("Tahapan L16 dan R16 di gabung tapi dibalik menjadi R16 dan L16")
+                    R16L16= R16 + L16
+                    st.write("R16L16:", " ".join(list(chunks(CD, 8))))
+                    # Lakukan permutasi dengan tabel invers IP-1
+                    permutated_result = ""
+                    for index in IP_inv:
+                        permutated_result += R16L16[index - 1]
+                    
+                    # Tampilkan hasil permutasi
+                    st.write("Hasil permutasi dengan tabel invers IP-1:", " ".join(list(chunks(permutated_result, 4))))
 
-                    #for round_num in range(1, 17):
-                        # Tampilkan nilai L1 hingga L16
-                     #   L1 = R0
-                      #  st.write(f"L{round_num}:", ' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
-
-                             
-         
-
-
+                    # Membagi bit-string menjadi kelompok-kelompok 8-bit
+                    byte_chunks = [permutated_result[i:i+8] for i in range(0, len(permutated_result), 8)]
+                    
+                    # Konversi setiap byte menjadi karakter ASCII
+                    ascii_characters = [chr(int(chunk, 2)) for chunk in byte_chunks]
+                    
+                    # Menggabungkan karakter-karakter ASCII menjadi string
+                    ascii_string = ''.join(ascii_characters)
+                    
+                    # Menampilkan hasil konversi
+                    st.write("Hasil konversi ke karakter ASCII:", ascii_string)
+                   
 if __name__ == "__main__":
     main()
