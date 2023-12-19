@@ -151,7 +151,7 @@ class DES:
                 permuted_bit_string += bit_string[index - 1]
         return permuted_bit_string
 
-    def s_box_substitution(bit_string, s_box_index):
+    def s_box_substitution(self, bit_string, s_box_index):
         # Pastikan bit_string memiliki panjang minimal 6 karakter
         if len(bit_string) < 6:
             raise ValueError("bit_string harus memiliki panjang minimal 6 karakter")
@@ -317,6 +317,11 @@ def main():
                         st.write(f"Block {i + 1}: {block}")
 
                     #INI SETELAH SBLOCK
+
+                    for i, block in enumerate(xor_blocks):
+                        print(f"Block {i + 1}: {block}")
+                        sbox_output = des.s_box_substitution(block[:6])
+                        print(f"S-Box output: {sbox_output}")
                     # lakukan substitusi S-Box pada setiap blok
 
                     # lakukan substitusi S-Box pada setiap blok
