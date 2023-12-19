@@ -263,15 +263,14 @@ def main():
                     st.write("Plaintext setelah IP:", " ".join(list(chunks(permuted_plaintext, 8))))
         
                     # Split plaintext into L0 and R0
-                    L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
-        
+                    #L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
+                    L, R = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
+                    L0, R0 =L, R
                     # Set R0 to L1
                     L1 = R0
         
                     # Expand R0 with E table
                     expanded_R0 = my_des.expansion(R0)
-
-                    # Display L0, R0, L1, E(R0) dengan spasi setiap 8 bit
 
                     # Display L0, R0, L1, E(R0)
                     #st.subheader("L0:")
@@ -345,6 +344,9 @@ def main():
                     #st.write(xor_result)
                     st.subheader("Tahapan XOR hasil permutasi dengan L0")
                     st.write("R1:", " ".join(list(chunks(xor_result, 4))))
+
+                    L[i] = R[i-1]
+                    R[i] = L[i-1] XOR f(R[i-1], K[i])
 
                     # asumsikan L dan R sudah didefinisikan, dan L0 = L, R0 = R
                     for i in range(16):
