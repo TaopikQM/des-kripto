@@ -241,14 +241,9 @@ def main():
                     permuted_plaintext = my_des.initial_permutation(my_des.plaintext)
 
                     # Menampilkan plaintext setelah Initial Permutation
-                    st.subheader("Plaintext setelah IP:")
-                    st.write(permuted_plaintext)
+                    #st.subheader("Plaintext setelah IP:")
+                    #st.write(permuted_plaintext)
                     st.write("Plaintext setelah IP:", " ".join(list(chunks(permuted_plaintext, 8))))
-
-                    # Memisahkan permuted_plaintext dengan spasi setiap 8 bit
-                    permuted_plaintext_spaced = ' '.join([permuted_plaintext[i:i + 8] for i in range(0, len(permuted_plaintext), 8)])
-                    st.subheader("Plaintext setelah IP per 8 bit (dengan spasi):")
-                    st.write(permuted_plaintext_spaced)
         
                     # Split plaintext into L0 and R0
                     L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
@@ -262,22 +257,12 @@ def main():
                     # Display L0, R0, L1, E(R0) dengan spasi setiap 8 bit
 
                     # Display L0, R0, L1, E(R0)
-                    st.subheader("L0:")
-                    st.write(L0)
-                    st.subheader("L0 per 8 bit:")
-                    st.write(' '.join([L0[i:i + 8] for i in range(0, len(L0), 8)]))
-                    st.subheader("R0:")
-                    st.write(R0)
-                    st.subheader("R0 per 8 bit:")
-                    st.write(' '.join([R0[i:i + 8] for i in range(0, len(R0), 8)]))
-                    st.subheader("L1:")
-                    st.write(L1)
-                    st.subheader("L1 per 8 bit:")
-                    st.write(' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
-                    st.subheader("E(R0):")
-                    st.write(expanded_R0)
-                    st.subheader("E(R0 per 8 bit):")
-                    st.write(' '.join([expanded_R0[i:i + 8] for i in range(0, len(expanded_R0), 8)]))
+                    #st.subheader("L0:")
+                    #st.write(L0)
+                    st.write("L0:",' '.join([L0[i:i + 8] for i in range(0, len(L0), 8)]))
+                    st.write("R0:",' '.join([R0[i:i + 8] for i in range(0, len(R0), 8)]))
+                    st.write("L1:",' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
+                    st.write("E(R0):",' '.join([expanded_R0[i:i + 8] for i in range(0, len(expanded_R0), 8)]))
                    
                     key = K_list[0]
         
@@ -286,9 +271,10 @@ def main():
 
                     # XOR R0 after expansion with the key
                     xor_result = my_des.xor(expanded_R0, my_des.key)
-                    st.subheader("XOR Result (E(R0) and Key):")
-                    st.write(xor_result)
-
+                    #st.subheader("XOR Result (E(R0) and Key):")
+                    #st.write(xor_result)
+                    st.write("E(R0):",' '.join([xor_result[i:i + 8] for i in range(0, len(xor_result), 8)]))
+                   
                     xor_blocks = []
 
                     # Pemisahan menjadi 8 blok dengan panjang 6 bit
@@ -316,11 +302,12 @@ def main():
                     permuted_result = my_des.permutation(single_line.replace(' ', ''))  # hapus spasi sebelum melakukan permutasi
                     
                     # tampilkan hasil permutasi
-                    st.write("Hasil permutasi:", permuted_result)
+                    #st.write("Hasil permutasi:", permuted_result)
+                    st.write("Hasil permutasi:", " ".join(list(chunks(permuted_result, 4))))
                     
                     # memisahkan permuted_result menjadi per 4 bit
-                    permuted_result_4bit = [permuted_result[i:i+4] for i in range(0, len(permuted_result), 4)]
-                    st.write("Hasil permutasi per 4 bit:", permuted_result_4bit)
+                    #permuted_result_4bit = [permuted_result[i:i+4] for i in range(0, len(permuted_result), 4)]
+                    #st.write("Hasil permutasi per 4 bit:", permuted_result_4bit)
 
                     #INI XOR LO
                     # Ubah string biner menjadi integer
@@ -330,8 +317,9 @@ def main():
                     # XOR permuted_result with L0
                     xor_result = my_des.xor(permuted_result, L0)
         
-                    st.subheader("XOR Result (Permutation and L0):")
-                    st.write(xor_result)
+                    #st.subheader("XOR Result (Permutation and L0):")
+                    #st.write(xor_result)
+                    st.write("XOR (Permutation and L0):", " ".join(list(chunks(xor_result, 4))))
         
 
 if __name__ == "__main__":
