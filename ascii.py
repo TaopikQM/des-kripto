@@ -322,16 +322,19 @@ def main():
                         #st.write(f"R{round_num}:", " ".join(list(chunks(current_R, 4))))
 
                         # Tambahkan nilai R1 ke dalam daftar
-                        all_R_values.append(R1)
+                        #all_R_values.append(R1)
                         
                         # Tampilkan nilai L1 hingga L16 dan R1 hingga R16
-                        current_L = R1
+                        #current_L = R1
 
+                    # Menampilkan nilai L16 dan R16 setelah perulangan
+                    st.write("Nilai L16 setelah perulangan:", ' '.join([L16[i:i + 8] for i in range(0, len(L16), 8)]))
+                    st.write("Nilai R16 setelah perulangan:", ' '.join([R1[i:i + 8] for i in range(0, len(R1), 8)]))
                     # Misalnya, untuk menampilkan semua nilai R1-R16
-                    st.write("Semua nilai R1-R16:", all_R_values)
+                    #st.write("Semua nilai R1-R16:", all_R_values)
                     # Setelah perulangan, Anda dapat menggunakan nilai L16 yang disimpan dalam current_L
-                    L16 = current_L
-                    st.write("Nilai L16:", ' '.join([L16[i:i + 8] for i in range(0, len(L16), 8)]))
+                    #L16 = current_L
+                    #st.write("Nilai L16:", ' '.join([L16[i:i + 8] for i in range(0, len(L16), 8)]))
 
                     #for round_num in range(1, 17):
                         # Tampilkan nilai L1 hingga L16
