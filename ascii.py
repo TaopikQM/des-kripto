@@ -310,7 +310,7 @@ def main():
                     # gabungkan semua hasil menjadi satu baris dengan spasi sebagai pemisah
                     single_line = ' '.join(s_box_results)
                     st.write(single_line)   
-                     st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
+                    st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
                    
                     # gabungkan semua hasil menjadi satu baris dengan spasi sebagai pemisah
                     single_line = ' '.join(s_box_results)
