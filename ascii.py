@@ -293,21 +293,7 @@ def main():
                         st.write("E(R):", ' '.join([expanded_R[i:i + 8] for i in range(0, len(expanded_R), 8)]))
                     
                         key = K_list[round_num - 1]
-                        max_key_length = 8  # Tentukan panjang maksimum kunci yang diinginkan
-
-                        # ...
-                        
-                        key_input = st.text_input(f"(K{round_num}):", key, key=f"key_input_{round_num}", value=key, max_chars=max_key_length)
-                        
-                        # Validasi panjang karakter
-                        if len(key_input) > max_key_length:
-                            st.warning(f"Panjang karakter melebihi batas maksimum {max_key_length}. Hanya 8 karakter yang akan digunakan.")
-                            key_input = key_input[:max_key_length]  # Ambil hanya 8 karakter pertama
-                        
-                        # Gunakan nilai key_input
-                        my_des.key = key_input
-
-                        #my_des.key = st.text_input(f"(K{round_num}):", key)
+                        my_des.key = st.text_input(f"(K{round_num}):", key)
                     
                         xor_result = my_des.xor(expanded_R, my_des.key)
                         st.subheader(f"Tahapan XOR (E(R) and Key)")
