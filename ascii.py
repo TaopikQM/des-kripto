@@ -303,7 +303,14 @@ def main():
                     # lakukan substitusi S-Box pada setiap blok
                     for i, block in enumerate(xor_blocks):
                         s_box_result = s_box_substitution(block, i % 8)  # gunakan modulo 8 untuk memastikan indeks berada dalam rentang 0-7
+                        #indeks berada dalam rentang 0-7
+                        s_box_results.append(s_box_result)
                         st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
+                    
+                    # gabungkan semua hasil menjadi satu baris dengan spasi sebagai pemisah
+                    single_line = ' '.join(s_box_results)
+                    st.write(single_line)   
+                     st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
                    
                     # gabungkan semua hasil menjadi satu baris dengan spasi sebagai pemisah
                     single_line = ' '.join(s_box_results)
