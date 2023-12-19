@@ -319,13 +319,13 @@ def main():
                         st.write(f"R{round_num}:", " ".join(list(chunks(R1, 4))))
                         # Update nilai L0, R0, dan R1 untuk iterasi selanjutnya
                         L0, R0 = R0, R1
-                        st.write(f"R{round_num}:", " ".join(list(chunks(current_R, 4))))
+                        #st.write(f"R{round_num}:", " ".join(list(chunks(current_R, 4))))
 
                         # Tambahkan nilai R1 ke dalam daftar
-                        all_R_values.append(current_R)
+                        all_R_values.append(R1)
                         
                         # Tampilkan nilai L1 hingga L16 dan R1 hingga R16
-                        current_L = current_R
+                        current_L = R1
 
                     # Misalnya, untuk menampilkan semua nilai R1-R16
                     st.write("Semua nilai R1-R16:", all_R_values)
