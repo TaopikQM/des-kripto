@@ -336,10 +336,16 @@ def main():
                         current_L = R1
                     
                     # Setelah perulangan, Anda dapat menggunakan nilai L16 yang disimpan dalam current_L
-                    L16 = current_L
+                    #L16 = current_L
 
                     # Menampilkan semua nilai R1-R16 setelah perulangan
                     st.write("Semua nilai R1-R16 setelah perulangan:", all_R_values)
+                    # Mengakses nilai ke-14 dari daftar all_R_values
+                    L16 = all_R_values[14]  # Ingat bahwa indeks dimulai dari 0, jadi ke-14 memiliki indeks 13
+                    
+                    # Menampilkan nilai ke-14
+                    #st.write("Nilai ke-14 dari R1-R16:", ' '.join([nilai_ke_14[i:i + 8] for i in range(0, len(nilai_ke_14), 8)]))
+
 
                     # Menampilkan nilai L16 dan R16 setelah perulangan
                     st.write("Nilai L16 setelah perulangan:", ' '.join([L16[i:i + 8] for i in range(0, len(L16), 4)]))
