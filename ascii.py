@@ -195,12 +195,12 @@ def main():
 
             permuted_plaintext = my_des.permuted_choice_1(my_des.key)
 
-            st.write("PC-1 per 8 bit:", " ".join(list(chunks(permuted_plaintext, 8))))
+            st.write("PC-1:", " ".join(list(chunks(permuted_plaintext, 8))))
 
             st.subheader("Tahapan C0 dan D0")
             C0, D0 = my_des.permuted_choice_1(my_des.key)[:28], my_des.permuted_choice_1(my_des.key)[28:]
-            st.write("C0 per 8 bit:", " ".join(list(chunks(C0, 8))))
-            st.write("D0 per 8 bit:", " ".join(list(chunks(D0, 8))))
+            st.write("C0:", " ".join(list(chunks(C0, 8))))
+            st.write("D0:", " ".join(list(chunks(D0, 8))))
 
             st.subheader("Tahapan CD1-16")
             CD_list = []
@@ -209,7 +209,7 @@ def main():
                 D0 = my_des.shift(D0, [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1], round_number)
                 CD = C0 + D0
                 CD_list.append(CD)
-                st.write(f"CD{round_number+1} per 8 bit:", ' '.join(list(chunks(CD, 8))))
+                st.write(f"CD{round_number+1}:", ' '.join(list(chunks(CD, 8))))
 
             st.subheader("Tahapan K1-16")
             K_list = []
@@ -217,7 +217,7 @@ def main():
                 permuted_plaintext = my_des.shift(permuted_plaintext, [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1], round_number)
                 K = my_des.permuted_choice_2(permuted_plaintext)
                 K_list.append(K)
-                st.write(f"K{round_number+1} per 8 bit:", ' '.join(list(chunks(K, 8))))
+                st.write(f"K{round_number+1}:", ' '.join(list(chunks(K, 8))))
 
  #TAHAPAN PLAITEXT KE BINNER ASCII
             st.title("String to Binary Converter / DES PLAINTEXT Generation")
