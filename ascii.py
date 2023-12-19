@@ -189,7 +189,7 @@ def main():
         st.caching.clear_cache()
 
     my_string = st.text_input("Masukkan String atau KEY Anda:")
-    K=my_string
+    Kun=my_string
 
     if my_string:
         st.subheader("Hasil ASCII:")
@@ -387,7 +387,7 @@ def main():
                     st.write("Hasil konversi ke karakter ASCII:", ascii_string)
                     hasil=ascii_string
 
-                    st.write("Jadi diketahui bahwa dengan kata kunci ' ",K," ', hasil enkripsi pesan ' ",P," ' akan menjadi ",ascii_string)
+                    st.subheader("Jadi diketahui bahwa dengan kata kunci ' ",Kun," ', hasil enkripsi pesan ' ",P," ' akan menjadi  ",ascii_string)
                    
 if __name__ == "__main__":
     main()
