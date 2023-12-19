@@ -243,6 +243,7 @@ def main():
                     # Menampilkan plaintext setelah Initial Permutation
                     st.subheader("Plaintext setelah IP:")
                     st.write(permuted_plaintext)
+                    st.write("Plaintext setelah IP:", " ".join(list(chunks(permuted_plaintext, 8))))
 
                     # Memisahkan permuted_plaintext dengan spasi setiap 8 bit
                     permuted_plaintext_spaced = ' '.join([permuted_plaintext[i:i + 8] for i in range(0, len(permuted_plaintext), 8)])
@@ -332,44 +333,6 @@ def main():
                     st.subheader("XOR Result (Permutation and L0):")
                     st.write(xor_result)
         
-                    # Split XOR result into 4-bit chunks
-                    xor_result_4bit = [xor_result[i:i + 4] for i in range(0, len(xor_result), 4)]
-        
-                    st.subheader("XOR Result per 4 bits:")
-                    st.write(xor_result_4bit)
-        
-                    # Apply P-Box to the XOR result
-                    final_result = my_des.permutation(xor_result)
-        
-                    st.subheader("Final Result after P-Box:")
-                    st.write(final_result)
-        
-                    # Split final_result into 4-bit chunks
-                    final_result_4bit = [final_result[i:i + 4] for i in range(0, len(final_result), 4)]
-        
-                    st.subheader("Final Result after P-Box per 4 bits:")
-                    st.write(final_result_4bit)
-        
-                    # Set L1 to R1
-                    R1 = L1
-        
-                    # Display L1 and R1
-                    st.subheader("L1:")
-                    st.write(L1)
-                    st.subheader("R1:")
-                    st.write(R1)
-        
-                    # XOR R1 with the result after P-Box
-                    new_L1 = my_des.xor(R1, final_result)
-        
-                    st.subheader("L1 after XOR:")
-                    st.write(new_L1)
-        
-                    # Display the final encryption result
-                    ciphertext = R1 + new_L1
-                    st.subheader("Final Encryption Result:")
-                    st.write(ciphertext)
-
 
 if __name__ == "__main__":
     main()
