@@ -344,9 +344,8 @@ def main():
                     #st.write(xor_result)
                     st.subheader("Tahapan XOR hasil permutasi dengan L0")
                     st.write("R1:", " ".join(list(chunks(xor_result, 4))))
-
-                    L[i] = R[i-1]
-                    R[i] = L[i-1] XOR f(R[i-1], K[i])
+                    #L[i] = R[i-1]
+                    #R[i] = L[i-1] XOR f(R[i-1], K[i])
 
                     # asumsikan L dan R sudah didefinisikan, dan L0 = L, R0 = R
                     for i in range(16):
