@@ -266,6 +266,8 @@ def main():
                     L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
                     
                     # Melakukan perulangan untuk langkah-langkah R1 hingga R16
+                    L16 = ""
+                    R1 = ""
                     for round_num in range(1, 17):
                         st.subheader(f"Tahapan Round {round_num}")
 
@@ -326,6 +328,14 @@ def main():
                         
                         # Tampilkan nilai L1 hingga L16 dan R1 hingga R16
                         #current_L = R1
+                        # Tambahkan nilai R1 ke dalam daftar
+                        all_R_values.append(R1)
+                    
+                        # Tampilkan nilai L1 hingga L16 dan R1 hingga R16
+                        current_L = R1
+                    
+                    # Setelah perulangan, Anda dapat menggunakan nilai L16 yang disimpan dalam current_L
+                    L16 = current_L
 
                     # Menampilkan nilai L16 dan R16 setelah perulangan
                     st.write("Nilai L16 setelah perulangan:", ' '.join([L16[i:i + 8] for i in range(0, len(L16), 8)]))
