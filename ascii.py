@@ -388,6 +388,50 @@ def main():
 
                     st.subheader("KESIMPULAN")
                     st.write("Jadi diketahui bahwa dengan kata kunci  ' ",Kun," ' , hasil enkripsi pesan  ' ",P," '  akan menjadi  ",ascii_string)
+
+                    # Inisialisasi L16 dan R16 dari permutated_result
+                    L16, R16 = permutated_result[:len(permutated_result)//2], permutated_result[len(permutated_result)//2:]
+                    
+                    # Proses invers per putaran dari R16 hingga R1
+                    for round_num in range(16, 0, -1):
+                        st.subheader(f"Tahapan Round {round_num} (Dekripsi)")
+                    
+                        # Simpan nilai R sebelumnya
+                        previous_R = R16
+                    
+                        # Lakukan XOR dengan L sebelumnya
+                        xor_result = my_des.xor(L16, previous_R)
+                    
+                        # Lakukan substitusi S-Box pada setiap blok
+                        s_box_results = []
+                        for i, block in enumerate(chunks(xor_result, 6)):
+                            s_box_result = s_box_substitution(block, i % 8)
+                            s_box_results.append(s_box_result)
+                    
+                        # Gabungkan hasil substitusi S-Box
+                        single_line = ''.join(s_box_results)
+                    
+                        # Lakukan permutasi dengan tabel invers P
+                        permutated_result = ""
+                        for index in P_inv:
+                            permutated_result += single_line[index - 1]
+                    
+                        # Update nilai R dan L untuk iterasi selanjutnya
+                        R16, L16 = permutated_result, previous_R
+                    
+                    # Gabungkan nilai akhir L dan R untuk mendapatkan plaintext hasil dekripsi
+                    decrypted_text = L16 + R16
+                    
+                    # Konversi blok bit ke karakter ASCII
+                    byte_chunks = [decrypted_text[i:i+8] for i in range(0, len(decrypted_text), 8)]
+                    ascii_characters = [chr(int(chunk, 2)) for chunk in byte_chunks]
+                    
+                    # Gabungkan karakter-karakter ASCII menjadi string
+                    decrypted_ascii_string = ''.join(ascii_characters)
+                    
+                    # Tampilkan hasil dekripsi dalam format ASCII
+                    st.write("Plaintext setelah dekripsi (ASCII):", decrypted_ascii_string)
+
                    
 if __name__ == "__main__":
     main()
