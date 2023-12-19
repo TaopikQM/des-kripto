@@ -339,7 +339,7 @@ def main():
                     #L16 = current_L
 
                     # Menampilkan semua nilai R1-R16 setelah perulangan
-                    st.write("Semua nilai R1-R16 setelah perulangan:", all_R_values)
+                    #st.write("Semua nilai R1-R16 setelah perulangan:", all_R_values)
                     # Mengakses nilai ke-14 dari daftar all_R_values
                     L16 = all_R_values[14]  # Ingat bahwa indeks dimulai dari 0, jadi ke-16 memiliki indeks 14
                     R16 = all_R_values[15]  # Ingat bahwa indeks dimulai dari 0, jadi ke-16 memiliki indeks 15
@@ -349,10 +349,10 @@ def main():
 
                     # Menampilkan nilai L16 dan R16 setelah perulangan
                     st.subheader("Tahapan L16 DAN R16")
-                    st.write("Nilai L16 setelah perulangan:", ' '.join([L16[i:i + 4] for i in range(0, len(L16), 8)]))
-                    st.write("Nilai R16 setelah perulangan:", ' '.join([R16[i:i + 4] for i in range(0, len(R16), 8)]))
+                    st.write("Nilai L16 setelah perulangan:", " ".join(list(chunks(L16, 4)))
+                    st.write("Nilai R16 setelah perulangan:", " ".join(list(chunks(R16, 4)))
                     st.subheader("Tahapan R16 DAN L16 DI GABUNG DENGAN DIBALIK R DULUAN")
-                    st.write("R16L16:", ' '.join([R16[i:i + 8] for i in range(0, len(L16), 4)])+ ' ' + ' '.join([L16[i:i + 8] for i in range(0, len(L16), 4)]))
+                    st.write("R16L16:", " ".join(list(chunks(R16, 8))) + ' ' + " ".join(list(chunks(L16, 8))))
                     # Misalnya, untuk menampilkan semua nilai R1-R16
                     #st.write("Semua nilai R1-R16:", all_R_values)
                     # Setelah perulangan, Anda dapat menggunakan nilai L16 yang disimpan dalam current_L
