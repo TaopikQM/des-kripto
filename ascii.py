@@ -95,10 +95,7 @@ class DES:
 
     def shift(self, bit_string, shift_table, round_number):
         return bit_string[shift_table[round_number]:] + bit_string[:shift_table[round_number]]
-
-
-
-    
+     
     def initial_permutation(self, plaintext):
         # Tabel Initial Permutation (IP)
         IP = [58, 50, 42, 34, 26, 18, 10, 2,
@@ -360,30 +357,12 @@ def main():
                         s_box_result = s_box_substitution(block, i % 8)  # gunakan modulo 8 untuk memastikan indeks berada dalam rentang 0-7
                         st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
 
+                    # gabungkan semua hasil menjadi satu baris dengan spasi sebagai pemisah
+                    single_line = ' '.join(s_box_results)
+                    st.write(single_line)
  
                 
-                    # Menampilkan blok setelah substitusi
-                    print("Blok setelah substitusi:", xor_blocks)
-                
-                    # Menggabungkan semua blok menjadi satu string bit
-                    substituted_result = "".join(xor_blocks)
-                    print("Hasil akhir setelah substitusi:", substituted_result)
-                    
-                    # Melakukan substitusi pada setiap blok dengan S-Box yang sesuai
-                    for i, block in enumerate(xor_blocks):
-                        xor_blocks[i] = my_des.s_box_substitution(block, S_Boxes[i])
-                    
-                    # Menampilkan blok setelah substitusi
-                    print("Blok setelah substitusi:", xor_blocks)
-                    
-                    # Menggabungkan semua blok menjadi satu string bit
-                    substituted_result = "".join(xor_blocks)
-                    print("Hasil akhir setelah substitusi:", substituted_result)
-                    # Melakukan substitusi pada setiap blok dengan S-Box yang sesuai
-                    for i, block in enumerate(blocks):
-                        # Lakukan substitusi dengan S-Box ke-i
-                        blocks[i] = my_des.s_box_substitution(block, S_Boxes[i])
-                    
+
                     # Menampilkan blok setelah substitusi
                     print("Blok setelah substitusi:", blocks)
                     
