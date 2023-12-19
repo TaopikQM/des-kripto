@@ -344,8 +344,20 @@ def main():
                     #st.subheader("XOR Result (Permutation and L0):")
                     #st.write(xor_result)
                     st.subheader("Tahapan XOR hasil permutasi dengan L0")
-                    st.write("XOR (Permutation and L0):", " ".join(list(chunks(xor_result, 4))))
-        
+                    st.write("R1:", " ".join(list(chunks(xor_result, 4))))
+
+                    # asumsikan L dan R sudah didefinisikan, dan L0 = L, R0 = R
+                    for i in range(16):
+                        # simpan nilai L dan R sebelumnya
+                        L_prev, R_prev = L, R
+                    
+                        # update nilai L dan R
+                        L = R_prev
+                        R = L_prev ^ f(R_prev, K[i])  # asumsikan f adalah fungsi f dalam DES dan K[i] adalah kunci putaran ke-i
+                    
+                        # tampilkan hasil setiap putaran
+                        st.write(f"Putaran {i + 1}: L = {L}, R = {R}")
+
 
 if __name__ == "__main__":
     main()
