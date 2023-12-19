@@ -259,9 +259,12 @@ def main():
                     # Display L0, R0, L1, E(R0)
                     #st.subheader("L0:")
                     #st.write(L0)
+                    st.subheader("Tahapan Pemisahan L0 dan R0 = L1")
                     st.write("L0:",' '.join([L0[i:i + 8] for i in range(0, len(L0), 8)]))
                     st.write("R0:",' '.join([R0[i:i + 8] for i in range(0, len(R0), 8)]))
                     st.write("L1:",' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
+
+                    st.subheader("Tahapan Tabel Ekspansi (E) Dengan R0")
                     st.write("E(R0):",' '.join([expanded_R0[i:i + 8] for i in range(0, len(expanded_R0), 8)]))
                    
                     key = K_list[0]
@@ -273,10 +276,12 @@ def main():
                     xor_result = my_des.xor(expanded_R0, my_des.key)
                     #st.subheader("XOR Result (E(R0) and Key):")
                     #st.write(xor_result)
-                    st.write("E(R0):",' '.join([xor_result[i:i + 8] for i in range(0, len(xor_result), 8)]))
+                    st.subheader("Tahapan XOR (E(R0) and Key)")
+                    st.write("E(R0) XOR KEY:",' '.join([xor_result[i:i + 8] for i in range(0, len(xor_result), 8)]))
                    
                     xor_blocks = []
 
+                    st.subheader("Tahapan Pemisahan 8 blok per 6 bit")
                     # Pemisahan menjadi 8 blok dengan panjang 6 bit
                     for i in range(0, len(xor_result), 6):
                         xor_blocks.append(xor_result[i:i+6])
@@ -287,6 +292,7 @@ def main():
 
                     #INI SETELAH SBLOCK
                     s_box_results = []
+                    st.subheader("Tahapan 8 blok per 6 bit dengan Tabel S-Box")
                     # lakukan substitusi S-Box pada setiap blok
                     for i, block in enumerate(xor_blocks):
                         s_box_result = s_box_substitution(block, i % 8)  # gunakan modulo 8 untuk memastikan indeks berada dalam rentang 0-7
@@ -295,14 +301,15 @@ def main():
                         st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
                     
                     # gabungkan semua hasil menjadi satu baris dengan spasi sebagai pemisah
-                    single_line = ' '.join(s_box_results)
-                    st.write(single_line)  
+                    #single_line = ' '.join(s_box_results)
+                    #st.write(single_line)  
 
                     # asumsikan my_des.permutation sudah didefinisikan
                     permuted_result = my_des.permutation(single_line.replace(' ', ''))  # hapus spasi sebelum melakukan permutasi
                     
                     # tampilkan hasil permutasi
                     #st.write("Hasil permutasi:", permuted_result)
+                    st.subheader("Tahapan S-BOX dengan Tabel fungsi P")
                     st.write("Hasil permutasi:", " ".join(list(chunks(permuted_result, 4))))
                     
                     # memisahkan permuted_result menjadi per 4 bit
@@ -319,6 +326,7 @@ def main():
         
                     #st.subheader("XOR Result (Permutation and L0):")
                     #st.write(xor_result)
+                    st.subheader("Tahapan XOR hasil permutasi dengan L0")
                     st.write("XOR (Permutation and L0):", " ".join(list(chunks(xor_result, 4))))
         
 
