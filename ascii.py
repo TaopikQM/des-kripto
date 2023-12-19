@@ -361,23 +361,6 @@ def main():
                         st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
 
  
-                    for i, block in enumerate(xor_blocks):
-                        # Pastikan indeks tidak melebihi panjang S_Boxes
-                        s_box_index = i % len(S_Boxes)
-                        xor_blocks[i] = my_des.s_box_substitution(block, s_box_index)
-                
-                    # Menampilkan blok setelah substitusi
-                    print("Blok setelah substitusi:", xor_blocks)
-                
-                    # Menggabungkan semua blok menjadi satu string bit
-                    substituted_result = "".join(xor_blocks)
-                    print("Hasil akhir setelah substitusi:", substituted_result)
-                    
-                    # Melakukan substitusi pada setiap blok dengan S-Box yang sesuai
-                    for i, block in enumerate(xor_blocks):
-                        # Pastikan indeks tidak melebihi panjang S_Boxes
-                        s_box_index = i % len(S_Boxes)
-                        xor_blocks[i] = my_des.s_box_substitution(block, s_box_index)
                 
                     # Menampilkan blok setelah substitusi
                     print("Blok setelah substitusi:", xor_blocks)
