@@ -318,6 +318,11 @@ def main():
 
                     #INI SETELAH SBLOCK
                     # lakukan substitusi S-Box pada setiap blok
+
+                    # lakukan substitusi S-Box pada setiap blok
+                    for i, block in enumerate(xor_blocks):
+                        s_box_result = s_box_substitution(block, i % 8)  # gunakan modulo 8 untuk memastikan indeks berada dalam rentang 0-7
+                        st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
                     # lakukan substitusi S-Box pada setiap blok
                     for i, block in enumerate(xor_blocks):
                         s_box_result = s_box_substitution(block, i % 8)  # gunakan modulo 8 untuk memastikan indeks berada dalam rentang 0-7
