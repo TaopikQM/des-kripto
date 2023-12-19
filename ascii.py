@@ -387,7 +387,7 @@ def main():
                     st.write("Hasil konversi ke karakter ASCII:", ascii_string)
                     hasil=ascii_string
 
-                    st.subheader("Jadi diketahui bahwa dengan kata kunci ' ",Kun," ', hasil enkripsi pesan ' ",P," ' akan menjadi  ",ascii_string)
+                    st.write("Jadi diketahui bahwa dengan kata kunci ' ",Kun," ', hasil enkripsi pesan ' ",P," ' akan menjadi  ",ascii_string)
                    
 if __name__ == "__main__":
     main()
