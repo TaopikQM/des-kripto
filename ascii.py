@@ -349,6 +349,7 @@ def main():
                     # Setelah perulangan, Anda dapat menggunakan nilai L16 yang disimpan dalam current_L
                     #L16 = current_L
 
+                    st.subheader("SELESAI R1-16")
                     # Menampilkan semua nilai R1-R16 setelah perulangan
                     #st.write("Semua nilai R1-R16 setelah perulangan:", all_R_values)
                     # Mengakses nilai ke-14 dari daftar all_R_values
