@@ -261,10 +261,6 @@ def main():
                     #st.subheader("Plaintext setelah IP:")
                     #st.write(permuted_plaintext)
                     st.write("Plaintext setelah IP:", " ".join(list(chunks(permuted_plaintext, 8))))
-        
-                    # Split plaintext into L0 and R0
-                    #L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
-                   
 
                     # Inisialisasi L0 dan R0 dari input pengguna
                     L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
@@ -272,10 +268,13 @@ def main():
                     # Melakukan perulangan untuk langkah-langkah R1 hingga R16
                     for round_num in range(1, 17):
                         st.subheader(f"Tahapan Round {round_num}")
-                    
+
+                        # Tampilkan nilai L1 hingga L16
+                        L1 = R0
                         # Tampilkan L0, R0, dan L1 (dari R0)
                         st.write(f"L{round_num-1}:", ' '.join([L0[i:i + 8] for i in range(0, len(L0), 8)]))
                         st.write(f"R{round_num-1}:", ' '.join([R0[i:i + 8] for i in range(0, len(R0), 8)]))
+                        st.write(f"L{round_num}:", ' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
                     
                         # Lakukan ekspansi dan XOR dengan kunci
                         expanded_R = my_des.expansion(R0)
@@ -318,14 +317,26 @@ def main():
                         R1 = xor_result  # R1 untuk iterasi selanjutnya
                         st.subheader(f"Tahapan XOR hasil permutasi dengan L0 untuk mendapatkan R{round_num}")
                         st.write(f"R{round_num}:", " ".join(list(chunks(R1, 4))))
-                    
-                        # Tampilkan nilai L1 hingga L16
-                        L1 = R0
-                        st.subheader(f"Tahapan Mendapatkan L{round_num}")
-                        st.write(f"L{round_num}:", ' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
-                    
                         # Update nilai L0, R0, dan R1 untuk iterasi selanjutnya
                         L0, R0 = R0, R1
+                        st.write(f"R{round_num}:", " ".join(list(chunks(current_R, 4))))
+
+                        # Tambahkan nilai R1 ke dalam daftar
+                        all_R_values.append(current_R)
+                        
+                        # Tampilkan nilai L1 hingga L16 dan R1 hingga R16
+                        current_L = current_R
+
+                    # Misalnya, untuk menampilkan semua nilai R1-R16
+                    st.write("Semua nilai R1-R16:", all_R_values)
+                    # Setelah perulangan, Anda dapat menggunakan nilai L16 yang disimpan dalam current_L
+                    L16 = current_L
+                    st.write("Nilai L16:", ' '.join([L16[i:i + 8] for i in range(0, len(L16), 8)]))
+
+                    #for round_num in range(1, 17):
+                        # Tampilkan nilai L1 hingga L16
+                     #   L1 = R0
+                      #  st.write(f"L{round_num}:", ' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
 
          
 
