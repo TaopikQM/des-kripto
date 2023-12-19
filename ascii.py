@@ -148,43 +148,6 @@ class DES:
                 permuted_bit_string += bit_string[index - 1]
         return permuted_bit_string
 
-    def s_box_substitutionN(self, bit_string, s_box_index):
-        # Pastikan bit_string memiliki panjang minimal 6 karakter
-        if len(bit_string) < 6:
-            raise ValueError("bit_string harus memiliki panjang minimal 6 karakter")
-        
-        # Lakukan substitusi sesuai dengan indeks yang diinginkan
-        row = int(bit_string[0] + bit_string[5], 2)
-        col = int(bit_string[1:5], 2)
-            
-        return format(S_Boxes[s_box_index][row][col], '04b')
-    def s_box_substitutiIon(bit_string, s_box_index):
-        # pastikan panjang bit_string cukup
-        if len(bit_string) < 6:
-            raise ValueError("bit_string harus memiliki panjang minimal 6 karakter")
-    
-        # hitung indeks baris dan kolom
-        row = int(bit_string[0] + bit_string[5], 2)
-        col = int(bit_string[1:5], 2)
-    
-        # dapatkan nilai dari S-Box
-        output_value = S_Boxes[s_box_index][row][col]
-    
-        # konversi ke string biner 4 bit
-        return format(output_value, '04b')
-    #def s_box_substitution(self, bit_string, s_box_index):
-        # Pastikan bit_string memiliki panjang minimal 6 karakter
-     #   if len(bit_string) < 6:
-      #      raise ValueError("bit_string harus memiliki panjang minimal 6 karakter")
-    
-        # Lakukan substitusi sesuai dengan indeks yang diinginkan
-       # row = int(bit_string[0] + bit_string[5], 2)
-        #col = int(bit_string[1:5], 2)
-        
-        #return format(S_Boxes[s_box_index][row][col], '04b')
-        #row = int(bit_string[0] + bit_string[5], 2)
-        #col = int(bit_string[1:5], 2)
-        #return format(S_Boxes[s_box_index][row][col], '04b')  # 4-bit binary representation
 def s_box_substitution(bit_string, s_box_index):
     # Pastikan bit_string memiliki panjang minimal 6 karakter
     if len(bit_string) < 6:
@@ -255,8 +218,6 @@ def main():
                 K = my_des.permuted_choice_2(permuted_plaintext)
                 K_list.append(K)
                 st.write(f"K{round_number+1} per 8 bit:", ' '.join(list(chunks(K, 8))))
-
-           
 
  #TAHAPAN PLAITEXT KE BINNER ASCII
             st.title("String to Binary Converter / DES PLAINTEXT Generation")
@@ -342,20 +303,7 @@ def main():
                     for i, block in enumerate(xor_blocks):
                         s_box_result = s_box_substitution(block, i % 8)  # gunakan modulo 8 untuk memastikan indeks berada dalam rentang 0-7
                         st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
-                    for i, block in enumerate(xor_blocks):
-                        print(f"Block {i + 1}: {block}")
-                        sbox_output = s_box_substitution(block[:6])
-                        print(f"S-Box output: {sbox_output}")
-                    # lakukan substitusi S-Box pada setiap blok
-
-                    # lakukan substitusi S-Box pada setiap blok
-                    for i, block in enumerate(xor_blocks):
-                        s_box_result = s_box_substitution(block, i % 8)  # gunakan modulo 8 untuk memastikan indeks berada dalam rentang 0-7
-                        st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
-                    # lakukan substitusi S-Box pada setiap blok
-                    for i, block in enumerate(xor_blocks):
-                        s_box_result = s_box_substitution(block, i % 8)  # gunakan modulo 8 untuk memastikan indeks berada dalam rentang 0-7
-                        st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
+                   
 
                     # gabungkan semua hasil menjadi satu baris dengan spasi sebagai pemisah
                     single_line = ' '.join(s_box_results)
