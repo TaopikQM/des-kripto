@@ -320,7 +320,7 @@ def main():
 
                     for i, block in enumerate(xor_blocks):
                         print(f"Block {i + 1}: {block}")
-                        sbox_output = des.s_box_substitution(block[:6])
+                        sbox_output = s_box_substitution(block[:6])
                         print(f"S-Box output: {sbox_output}")
                     # lakukan substitusi S-Box pada setiap blok
 
