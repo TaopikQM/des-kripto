@@ -349,8 +349,8 @@ def main():
 
                     # Menampilkan nilai L16 dan R16 setelah perulangan
                     st.subheader("Tahapan L16 DAN R16")
-                    st.write("Nilai L16 setelah perulangan:", ' '.join([L16[i:i + 8] ))
-                    st.write("Nilai R16 setelah perulangan:", ' '.join([R16[i:i + 8] ))
+                    st.write("Nilai L16 setelah perulangan:", ' '.join([L16[i:i + 8]))
+                    st.write("Nilai R16 setelah perulangan:", ' '.join([R16[i:i + 8]))
                     st.subheader("Tahapan R16 DAN L16 DI GABUNG DENGAN DIBALIK R DULUAN")
                     st.write("R16L16:", ' '.join([R16[i:i + 8] for i in range(0, len(L16), 8)]))
                     # Misalnya, untuk menampilkan semua nilai R1-R16
