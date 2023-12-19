@@ -182,11 +182,11 @@ def main():
     st.title("String to Binary Converter / DES Key Generation")
 
     if st.button("Refresh"):
-       
         st.write("Proses caching akan dihapus.")
-    
+        
         # Menghapus cache (pastikan ini diperlukan di sini)
         st.caching.clear_cache()
+
 
     my_string = st.text_input("Masukkan String atau KEY Anda:")
     Kun=my_string
@@ -302,7 +302,7 @@ def main():
                         st.write("E(R):", ' '.join([expanded_R[i:i + 8] for i in range(0, len(expanded_R), 8)]))
                     
                         key = K_list[round_num - 1]
-                        my_des.key = st.text_input(f"Enter the key (K{round_num}):", key)
+                        my_des.key = st.write(f"(K{round_num}):", key)
                     
                         xor_result = my_des.xor(expanded_R, my_des.key)
                         st.subheader(f"Tahapan XOR (E(R) and Key)")
