@@ -189,6 +189,7 @@ def main():
         st.caching.clear_cache()
 
     my_string = st.text_input("Masukkan String atau KEY Anda:")
+    K=my_string
 
     if my_string:
         st.subheader("Hasil ASCII:")
@@ -249,6 +250,7 @@ def main():
             st.title("String to Binary Converter / DES PLAINTEXT Generation")
         
             my_string = st.text_input("Masukkan PLAINTEXT Anda:")
+            P=my_string
         
             if my_string:
                 # Menampilkan hasil ASCII dari string yang dimasukkan
@@ -366,9 +368,10 @@ def main():
                     permutated_result = ""
                     for index in IP_inv:
                         permutated_result += R16L16[index - 1]
-                    
+
+                    st.subheader("Tahapan R16L16 permutasi dengan tabel invers IP-1")
                     # Tampilkan hasil permutasi
-                    st.write("Hasil permutasi dengan tabel invers IP-1:", " ".join(list(chunks(permutated_result, 8))))
+                    st.write("Hasil invers IP-1:", " ".join(list(chunks(permutated_result, 8))))
 
                     # Membagi bit-string menjadi kelompok-kelompok 8-bit
                     byte_chunks = [permutated_result[i:i+8] for i in range(0, len(permutated_result), 8)]
@@ -378,9 +381,13 @@ def main():
                     
                     # Menggabungkan karakter-karakter ASCII menjadi string
                     ascii_string = ''.join(ascii_characters)
-                    
+
+                    st.subheader("Tahapan hasil invers IP-1 konversi ke karakter ASCII")
                     # Menampilkan hasil konversi
                     st.write("Hasil konversi ke karakter ASCII:", ascii_string)
+                    hasil=ascii_string
+
+                    st.write("Jadi diketahui bahwa dengan kata kunci ' ",K," ', hasil enkripsi pesan ' ",P," ' akan menjadi ",ascii_string)
                    
 if __name__ == "__main__":
     main()
