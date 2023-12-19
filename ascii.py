@@ -268,6 +268,7 @@ def main():
                     # Melakukan perulangan untuk langkah-langkah R1 hingga R16
                     L16 = ""
                     R1 = ""
+                    all_R_values = []  # Tambahkan baris ini di awal fungsi main
                     for round_num in range(1, 17):
                         st.subheader(f"Tahapan Round {round_num}")
 
