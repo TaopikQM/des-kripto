@@ -304,14 +304,9 @@ def main():
                         s_box_result = s_box_substitution(block, i % 8)  # gunakan modulo 8 untuk memastikan indeks berada dalam rentang 0-7
                         st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
                    
-
                     # gabungkan semua hasil menjadi satu baris dengan spasi sebagai pemisah
                     single_line = ' '.join(s_box_results)
                     st.write(single_line)
- 
-                
-
-                    # Menampilkan blok setelah substitusi
                     print("Blok setelah substitusi:", blocks)
                     
                     # Menggabungkan semua blok menjadi satu string bit
