@@ -161,7 +161,7 @@ class DES:
         col = int(bit_string[1:5], 2)
             
         return format(S_Boxes[s_box_index][row][col], '04b')
-     def s_box_substitution(self, bit_string, s_box_index):
+    def s_box_substitution(self, bit_string, s_box_index):
         # periksa panjang bit_string
         if len(bit_string) < 6:
             raise ValueError("bit_string harus memiliki panjang minimal 6 karakter")
