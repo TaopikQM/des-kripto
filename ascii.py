@@ -321,7 +321,16 @@ def main():
                     permuted_result_4bit = [permuted_result[i:i+4] for i in range(0, len(permuted_result), 4)]
                     st.write("Hasil permutasi per 4 bit:", permuted_result_4bit)
 
-        
+                    #INI XOR LO
+                    # Ubah string biner menjadi integer
+                    permuted_result_int = int(permuted_result, 2)
+                    L0_int = int(L0, 2)
+                    
+                    # Lakukan operasi XOR dan ubah kembali ke string biner
+                    xor_result = bin(permuted_result_int ^ L0_int)[2:].zfill(len(permuted_result))
+                    
+                    st.write("Hasil XOR:", xor_result)
+
                     st.subheader("Permutation Result:")
                     st.write(permuted_result)
 
