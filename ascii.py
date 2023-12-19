@@ -182,11 +182,8 @@ def main():
     st.title("String to Binary Converter / DES Key Generation")
 
     if st.button("Refresh"):
-        st.write("Proses caching akan dihapus.")
-        
-        # Menghapus cache (pastikan ini diperlukan di sini)
-        st.caching.clear_cache()
-
+       st.write("Refreshing the page...")
+       st.experimental_rerun()
 
     my_string = st.text_input("Masukkan String atau KEY Anda:")
     Kun=my_string
