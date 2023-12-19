@@ -401,12 +401,16 @@ def main():
                     
                         # Lakukan XOR dengan L sebelumnya
                         xor_result = my_des.xor(L16, previous_R)
-                    
+                        
+                        # Bagi XOR result menjadi blok-blok dengan panjang 6 bit
+                        xor_blocks = list(chunks(xor_result, 6))
+                        
                         # Lakukan substitusi S-Box pada setiap blok
                         s_box_results = []
-                        for i, block in enumerate(chunks(xor_result, 6)):
+                        for i, block in enumerate(xor_blocks):
                             s_box_result = s_box_substitution(block, i % 8)
                             s_box_results.append(s_box_result)
+
                     
                         # Gabungkan hasil substitusi S-Box
                         single_line = ''.join(s_box_results)
