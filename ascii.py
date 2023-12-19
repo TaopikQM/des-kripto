@@ -339,7 +339,7 @@ def main():
                     #L16 = current_L
 
                     # Menampilkan semua nilai R1-R16 setelah perulangan
-                    #st.write("Semua nilai R1-R16 setelah perulangan:", all_R_values)
+                    st.write("Semua nilai R1-R16 setelah perulangan:", all_R_values)
                     # Mengakses nilai ke-14 dari daftar all_R_values
                     L16 = all_R_values[14]  # Ingat bahwa indeks dimulai dari 0, jadi ke-16 memiliki indeks 14
                     R16 = all_R_values[15]  # Ingat bahwa indeks dimulai dari 0, jadi ke-16 memiliki indeks 15
