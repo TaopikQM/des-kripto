@@ -368,7 +368,7 @@ def main():
                         permutated_result += R16L16[index - 1]
                     
                     # Tampilkan hasil permutasi
-                    st.write("Hasil permutasi dengan tabel invers IP-1:", " ".join(list(chunks(permutated_result, 4))))
+                    st.write("Hasil permutasi dengan tabel invers IP-1:", " ".join(list(chunks(permutated_result, 8))))
 
                     # Membagi bit-string menjadi kelompok-kelompok 8-bit
                     byte_chunks = [permutated_result[i:i+8] for i in range(0, len(permutated_result), 8)]
