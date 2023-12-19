@@ -190,6 +190,9 @@ def main():
 
     my_string = st.text_input("Masukkan String atau KEY Anda:")
     Kun=my_string
+    # Menambahkan notifikasi jika panjang input tidak sesuai
+    if len(my_string) != 8:
+        st.warning("Panjang string atau kunci harus 8 karakter.")
 
     if my_string:
         st.subheader("Hasil ASCII:")
@@ -251,6 +254,9 @@ def main():
         
             my_string = st.text_input("Masukkan PLAINTEXT Anda:")
             P=my_string
+            # Menambahkan notifikasi jika panjang input tidak sesuai
+            if len(my_string) != 8:
+                st.warning("Panjang string atau kunci harus 8 karakter.")
         
             if my_string:
                 # Menampilkan hasil ASCII dari string yang dimasukkan
@@ -291,6 +297,7 @@ def main():
                         st.write(f"L{round_num}:", ' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
                     
                         # Lakukan ekspansi dan XOR dengan kunci
+                        st.subheader("Tahapan Ekspansi R")
                         expanded_R = my_des.expansion(R0)
                         st.write("E(R):", ' '.join([expanded_R[i:i + 8] for i in range(0, len(expanded_R), 8)]))
                     
@@ -360,8 +367,8 @@ def main():
 
                     # Menampilkan nilai L16 dan R16 setelah perulangan
                     st.subheader("Tahapan L16 dan R16")
-                    st.write("Nilai L16 setelah perulangan:", " ".join(list(chunks(L16, 4))))
-                    st.write("Nilai R16 setelah perulangan:", " ".join(list(chunks(R16, 4))))
+                    st.write("L16:", " ".join(list(chunks(L16, 4))))
+                    st.write("R16:", " ".join(list(chunks(R16, 4))))
                     st.subheader("Tahapan L16 dan R16 di gabung tapi dibalik menjadi R16 dan L16")
                     R16L16= R16 + L16
                     st.write("R16L16:", " ".join(list(chunks(CD, 8))))
