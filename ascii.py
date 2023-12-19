@@ -341,7 +341,10 @@ def main():
                         st.write(f"Block {i + 1}: {block}")
 
                     #INI SETELAH SBLOCK
-
+                    # lakukan substitusi S-Box pada setiap blok
+                    for i, block in enumerate(xor_blocks):
+                        s_box_result = s_box_substitution(block, i % 8)  # gunakan modulo 8 untuk memastikan indeks berada dalam rentang 0-7
+                        st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
                     for i, block in enumerate(xor_blocks):
                         print(f"Block {i + 1}: {block}")
                         sbox_output = s_box_substitution(block[:6])
@@ -411,6 +414,7 @@ def main():
                     s_box_substituted_blocks = [my_des.s_box_substitution(block, s_box_index) for block in blocks]
                     
                     # Display the S-box substituted blocks
+                    
                     st.subheader("Blocks after S-box substitution:")
                     for i, block in enumerate(s_box_substituted_blocks, start=1):
                         st.write(f"Block {i}: {block}")
