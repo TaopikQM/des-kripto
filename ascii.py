@@ -310,10 +310,17 @@ def main():
                     # gabungkan semua hasil menjadi satu baris dengan spasi sebagai pemisah
                     single_line = ' '.join(s_box_results)
                     st.write(single_line)  
+                 
+                    # asumsikan my_des.permutation sudah didefinisikan
+                    permuted_result = my_des.permutation(single_line.replace(' ', ''))  # hapus spasi sebelum melakukan permutasi
                     
-                    # Display substitution result and permutation result
-                    st.subheader("Substitution Result:")
-                    st.write(substituted_result)
+                    # tampilkan hasil permutasi
+                    st.write("Hasil permutasi:", permuted_result)
+                    
+                    # memisahkan permuted_result menjadi per 4 bit
+                    permuted_result_4bit = [permuted_result[i:i+4] for i in range(0, len(permuted_result), 4)]
+                    st.write("Hasil permutasi per 4 bit:", permuted_result_4bit)
+
         
                     # Permute the result with the P table
                     permuted_result = my_des.permutation(substituted_result)
