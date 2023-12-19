@@ -326,6 +326,17 @@ def main():
         
                     st.subheader("Permutation Result:")
                     st.write(permuted_result)
+
+                    # Melakukan permutasi pada hasil substitusi dengan tabel P
+                    permuted_result = my_des.permutation(substituted_result)
+                    
+                    # tampilkan hasil permutasi
+                    st.write("Hasil permutasi:", permuted_result)
+                    
+                    # memisahkan permuted_result menjadi per 4 bit
+                    permuted_result_4bit = [permuted_result[i:i+4] for i in range(0, len(permuted_result), 4)]
+                    st.write("Hasil permutasi per 4 bit:", permuted_result_4bit)
+
         
                     # XOR permuted_result with L0
                     xor_result = my_des.xor(permuted_result, L0)
