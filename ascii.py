@@ -188,6 +188,11 @@ def main():
     my_string = st.text_input("Masukkan String atau KEY Anda:")
     Kun=my_string
     # Menambahkan notifikasi jika panjang input tidak sesuai
+    # Validasi jika panjang karakter telah mencapai 8
+    if my_string and len(my_string) == 8:
+        st.warning("Panjang karakter sudah mencapai 8. Tidak bisa menambah karakter lagi.")
+    else:
+        st.info("Masih bisa menambah karakter.")
     if len(my_string) != 8:
         st.warning("Panjang string atau kunci harus 8 karakter.")
 
