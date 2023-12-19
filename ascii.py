@@ -338,9 +338,12 @@ def main():
                     # Setelah perulangan, Anda dapat menggunakan nilai L16 yang disimpan dalam current_L
                     L16 = current_L
 
+                    # Menampilkan semua nilai R1-R16 setelah perulangan
+                    st.write("Semua nilai R1-R16 setelah perulangan:", all_R_values)
+
                     # Menampilkan nilai L16 dan R16 setelah perulangan
-                    st.write("Nilai L16 setelah perulangan:", ' '.join([L16[i:i + 8] for i in range(0, len(L16), 8)]))
-                    st.write("Nilai R16 setelah perulangan:", ' '.join([R1[i:i + 8] for i in range(0, len(R1), 8)]))
+                    st.write("Nilai L16 setelah perulangan:", ' '.join([L16[i:i + 8] for i in range(0, len(L16), 4)]))
+                    st.write("Nilai R16 setelah perulangan:", ' '.join([R1[i:i + 8] for i in range(0, len(R1), 4)]))
                     # Misalnya, untuk menampilkan semua nilai R1-R16
                     #st.write("Semua nilai R1-R16:", all_R_values)
                     # Setelah perulangan, Anda dapat menggunakan nilai L16 yang disimpan dalam current_L
