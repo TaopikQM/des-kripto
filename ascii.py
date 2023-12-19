@@ -185,16 +185,8 @@ def main():
        st.write("Refreshing the page...")
        st.experimental_rerun()
 
-    my_string = st.text_input("Masukkan String atau KEY Anda:")
+    my_string = st.text_input("Masukkan String atau KEY Anda:", max_chars=8)
     Kun=my_string
-    # Menambahkan notifikasi jika panjang input tidak sesuai
-    # Validasi jika panjang karakter telah mencapai 8
-    if my_string and len(my_string) == 8:
-        st.warning("Panjang karakter sudah mencapai 8. Tidak bisa menambah karakter lagi.")
-    else:
-        st.info("Masih bisa menambah karakter.")
-    if len(my_string) != 8:
-        st.warning("Panjang string atau kunci harus 8 karakter.")
 
     if my_string:
         st.subheader("Hasil ASCII:")
@@ -254,11 +246,8 @@ def main():
  #TAHAPAN PLAITEXT KE BINNER ASCII
             st.title("String to Binary Converter / DES PLAINTEXT Generation")
         
-            my_string = st.text_input("Masukkan PLAINTEXT Anda:")
+            my_string = st.text_input("Masukkan PLAINTEXT Anda:", max_chars=8)
             P=my_string
-            # Menambahkan notifikasi jika panjang input tidak sesuai
-            if len(my_string) != 8:
-                st.warning("Panjang string atau kunci harus 8 karakter.")
         
             if my_string:
                 # Menampilkan hasil ASCII dari string yang dimasukkan
@@ -304,7 +293,7 @@ def main():
                         st.write("E(R):", ' '.join([expanded_R[i:i + 8] for i in range(0, len(expanded_R), 8)]))
                     
                         key = K_list[round_num - 1]
-                        my_des.key = st.text_input(f"(K{round_num}):", key)
+                        my_des.key = st.text(f"(K{round_num}):", key)
                     
                         xor_result = my_des.xor(expanded_R, my_des.key)
                         st.subheader(f"Tahapan XOR (E(R) and Key)")
