@@ -206,15 +206,15 @@ def main():
             C_list = []
             for round_number in range(16):
                 C0 = my_des.shift(C0, [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1], round_number)
-               
-                #C_list.append(C)
+                C = C0
+                C_list.append(C)
                 st.write(f"C{round_number+1}:", ' '.join(list(chunks(C, 8))))
 
             st.subheader("Tahapan D1-16")
             D_list = []
             for round_number in range(16):
                 D0 = my_des.shift(D0, [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1], round_number)
-               
+                D = D0
                 D_list.append(D)
                 st.write(f"D{round_number+1}:", ' '.join(list(chunks(D, 8))))
 
