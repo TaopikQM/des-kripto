@@ -199,8 +199,8 @@ def main():
 
             st.subheader("Tahapan C0 dan D0")
             C0, D0 = my_des.permuted_choice_1(my_des.key)[:28], my_des.permuted_choice_1(my_des.key)[28:]
-            st.write("C0:", " ".join(list(chunks(C0, 8))))
-            st.write("D0:", " ".join(list(chunks(D0, 8))))
+            st.write("C0:", " ".join(list(chunks(C0, 4))))
+            st.write("D0:", " ".join(list(chunks(D0, 4))))
 
             st.subheader("Tahapan C1-16")
             C_list = []
@@ -208,7 +208,7 @@ def main():
                 C0 = my_des.shift(C0, [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1], round_number)
                 C = C0
                 C_list.append(C)
-                st.write(f"C{round_number+1}:", ' '.join(list(chunks(C, 8))))
+                st.write(f"C{round_number+1}:", ' '.join(list(chunks(C, 4))))
 
             st.subheader("Tahapan D1-16")
             D_list = []
@@ -216,7 +216,7 @@ def main():
                 D0 = my_des.shift(D0, [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1], round_number)
                 D = D0
                 D_list.append(D)
-                st.write(f"D{round_number+1}:", ' '.join(list(chunks(D, 8))))
+                st.write(f"D{round_number+1}:", ' '.join(list(chunks(D, 4))))
 
          
             st.subheader("Tahapan CD1-16")
