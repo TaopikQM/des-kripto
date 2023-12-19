@@ -266,73 +266,68 @@ def main():
                     #L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
                    
 
-                    # Inisialisasi L0 dan R0 dari input pengguna
-                    L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
-                    
-                    # Melakukan perulangan untuk langkah-langkah R1 hingga R16
-                    for round_num in range(1, 17):
-                        st.subheader(f"Tahapan Round {round_num}")
-                    
-                        # Tampilkan L0, R0
-                        st.write(f"L{round_num-1}:", ' '.join([L0[i:i + 8] for i in range(0, len(L0), 8)]))
-                        st.write(f"R{round_num-1}:", ' '.join([R0[i:i + 8] for i in range(0, len(R0), 8)]))
-                    
-                        # Lakukan ekspansi dan XOR dengan kunci
-                        expanded_R = my_des.expansion(R0)
-                        st.write("E(R):", ' '.join([expanded_R[i:i + 8] for i in range(0, len(expanded_R), 8)]))
-                    
-                        key = K_list[round_num - 1]
-                        my_des.key = st.text_input(f"Enter the key (K{round_num}):", key)
-                    
-                        xor_result = my_des.xor(expanded_R, my_des.key)
-                        st.subheader(f"Tahapan XOR (E(R) and Key)")
-                        st.write(f"E(R) XOR KEY:", ' '.join([xor_result[i:i + 8] for i in range(0, len(xor_result), 8)]))
-                    
-                        xor_blocks = []
-                    
-                        st.subheader("Tahapan Pemisahan 8 blok per 6 bit")
-                        for i in range(0, len(xor_result), 6):
-                            xor_blocks.append(xor_result[i:i+6])
-                    
-                        for i, block in enumerate(xor_blocks):
-                            st.write(f"Block {i + 1}: {block}")
-                    
-                        # Lakukan substitusi S-Box pada setiap blok
-                        s_box_results = []
-                        st.subheader("Tahapan 8 blok per 6 bit dengan Tabel S-Box")
-                        for i, block in enumerate(xor_blocks):
-                            s_box_result = s_box_substitution(block, i % 8)
-                            s_box_results.append(s_box_result)
-                            st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
-                    
-                        # Gabungkan hasil substitusi S-Box
-                        single_line = ''.join(s_box_results)
-                    
-                        # Lakukan permutasi
-                        permuted_result = my_des.permutation(single_line)
-                        st.subheader("Tahapan S-BOX dengan Tabel fungsi P")
-                        st.write("Hasil permutasi:", " ".join(list(chunks(permuted_result, 4))))
-                    
-                        # Lakukan XOR dengan L0 untuk mendapatkan R1
-                        xor_result = my_des.xor(permuted_result, L0)
-                        R0 = xor_result  # Update nilai R0 untuk iterasi selanjutnya
-                    
-                    # ... (kode setelah perulangan)
+                   # Inisialisasi L0 dan R0 dari input pengguna
+                   L0, R0 = permuted_plaintext[:len(permuted_plaintext)//2], permuted_plaintext[len(permuted_plaintext)//2:]
+                   
+                   # Melakukan perulangan untuk langkah-langkah R1 hingga R16
+                   for round_num in range(1, 17):
+                       st.subheader(f"Tahapan Round {round_num}")
+                   
+                       # Tampilkan L0, R0, dan L1 (dari R0)
+                       st.write(f"L{round_num-1}:", ' '.join([L0[i:i + 8] for i in range(0, len(L0), 8)]))
+                       st.write(f"R{round_num-1}:", ' '.join([R0[i:i + 8] for i in range(0, len(R0), 8)]))
+                   
+                       # Lakukan ekspansi dan XOR dengan kunci
+                       expanded_R = my_des.expansion(R0)
+                       st.write("E(R):", ' '.join([expanded_R[i:i + 8] for i in range(0, len(expanded_R), 8)]))
+                   
+                       key = K_list[round_num - 1]
+                       my_des.key = st.text_input(f"Enter the key (K{round_num}):", key)
+                   
+                       xor_result = my_des.xor(expanded_R, my_des.key)
+                       st.subheader(f"Tahapan XOR (E(R) and Key)")
+                       st.write(f"E(R) XOR KEY:", ' '.join([xor_result[i:i + 8] for i in range(0, len(xor_result), 8)]))
+                   
+                       xor_blocks = []
+                   
+                       st.subheader("Tahapan Pemisahan 8 blok per 6 bit")
+                       for i in range(0, len(xor_result), 6):
+                           xor_blocks.append(xor_result[i:i+6])
+                   
+                       for i, block in enumerate(xor_blocks):
+                           st.write(f"Block {i + 1}: {block}")
+                   
+                       # Lakukan substitusi S-Box pada setiap blok
+                       s_box_results = []
+                       st.subheader("Tahapan 8 blok per 6 bit dengan Tabel S-Box")
+                       for i, block in enumerate(xor_blocks):
+                           s_box_result = s_box_substitution(block, i % 8)
+                           s_box_results.append(s_box_result)
+                           st.write(f"Block {i + 1}: {block} -> S-Box Substitution: {s_box_result}")
+                   
+                       # Gabungkan hasil substitusi S-Box
+                       single_line = ''.join(s_box_results)
+                   
+                       # Lakukan permutasi
+                       permuted_result = my_des.permutation(single_line)
+                       st.subheader("Tahapan S-BOX dengan Tabel fungsi P")
+                       st.write("Hasil permutasi:", " ".join(list(chunks(permuted_result, 4))))
+                   
+                       # Lakukan XOR dengan L0 untuk mendapatkan R1
+                       xor_result = my_des.xor(permuted_result, L0)
+                       R1 = xor_result  # R1 untuk iterasi selanjutnya
+                       st.subheader(f"Tahapan XOR hasil permutasi dengan L0 untuk mendapatkan R{round_num}")
+                       st.write(f"R{round_num}:", " ".join(list(chunks(R1, 4))))
+                   
+                       # Tampilkan nilai L1 hingga L16
+                       L1 = R0
+                       st.subheader(f"Tahapan Mendapatkan L{round_num}")
+                       st.write(f"L{round_num}:", ' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
+                   
+                       # Update nilai L0, R0, dan R1 untuk iterasi selanjutnya
+                       L0, R0 = R0, R1
 
-                    #L[i] = R[i-1]
-                    #R[i] = L[i-1] XOR f(R[i-1], K[i])
-
-                    # asumsikan L dan R sudah didefinisikan, dan L0 = L, R0 = R
-                    for i in range(16):
-                        # simpan nilai L dan R sebelumnya
-                        L_prev, R_prev = L, R
-                    
-                        # update nilai L dan R
-                        L = R_prev
-                        R = L_prev ^ f(R_prev, K[i])  # asumsikan f adalah fungsi f dalam DES dan K[i] adalah kunci putaran ke-i
-                    
-                        # tampilkan hasil setiap putaran
-                        st.write(f"Putaran {i + 1}: L = {L}, R = {R}")
+         
 
 
 if __name__ == "__main__":
