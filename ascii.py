@@ -420,6 +420,7 @@ def main():
                         #key2 = K_list[round_num - 1]
                         #my_des.key = st.text_input(f"(K{round_num}):", key2)
                         #st.session_state.my_des_key = st.text_input(f"(K{round_num}):", key2)
+                        cnt = 0
                         key2 = K_list[round_num - 1]
                         st.session_state.my_des_key = st.text_input(f"(K{round_num}_{cnt}):", key2)
                             # sisanya sama
