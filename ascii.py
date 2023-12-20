@@ -393,9 +393,9 @@ def main():
                     L16, R16 = permutated_result[:len(permutated_result)//2], permutated_result[len(permutated_result)//2:]
                     
                                     # Lakukan permutasi awal (IP) pada ciphertext
-                    permuted_ciphertext = my_des.initial_permutation(ciphertext)
+                    permuted_ciphertext = my_des.initial_permutation(permutated_result)
                     st.subheader("Ciphertext setelah IP:")
-                    st.write(' '.join([permuted_ciphertext[i:i + 8] for i in range(0, len(permutated_result), 8)]))
+                    st.write(' '.join([permuted_ciphertext[i:i + 8] for i in range(0, len(permuted_ciphertext), 8)]))
     
                     # Inisialisasi L16 dan R16 dari ciphertext
                     L16, R16 = permuted_ciphertext[:len(permuted_ciphertext)//2], permuted_ciphertext[len(permuted_ciphertext)//2:]
