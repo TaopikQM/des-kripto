@@ -498,6 +498,23 @@ def main():
                     
                     st.subheader("Plaintext setelah FP:")
                     st.write(' '.join([final_result[i:i + 8] for i in range(0, len(final_result), 8)]))
+                     # Membagi bit-string menjadi kelompok-kelompok 8-bit
+                    byte_chunks = [final_result[i:i+8] for i in range(0, len(final_result), 8)]
+                                        
+                    # Konversi setiap byte menjadi karakter ASCII
+                    ascii_characters = [chr(int(chunk, 2)) for chunk in byte_chunks]
+                                        
+                    # Menggabungkan karakter-karakter ASCII menjadi string
+                    ascii_string = ''.join(ascii_characters)
+                    
+                    st.subheader("Tahapan hasil invers IP-1 konversi ke karakter ASCII")
+                    # Menampilkan hasil konversi
+                    st.write("Hasil konversi ke karakter ASCII:", ascii_string) 
+                    hasil=ascii_string
+                    
+                    st.subheader("KESIMPULAN")
+                    st.write(f"Jadi diketahui bahwa dengan kata kunci '{Kun}', hasil enkripsi pesan '{P}' akan menjadi '{ascii_string}'")
+
 
 
 
