@@ -488,7 +488,7 @@ def main():
                     st.write(' '.join([final_result[i:i + 8] for i in range(0, len(final_result), 8)]))
     
                     # Lakukan permutasi akhir (Final Permutation atau FP)
-                    plaintext = my_des.final_permutation(final_result)
+                    plaintext = my_des.permutated_result(final_result)
                     st.subheader("Plaintext setelah FP:")
                     st.write(' '.join([plaintext[i:i + 8] for i in range(0, len(plaintext), 8)]))
 
