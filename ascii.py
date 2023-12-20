@@ -417,11 +417,16 @@ def main():
                         expanded_R = my_des.expansion(R16)
                         st.write("E(R):", ' '.join([expanded_R[i:i + 8] for i in range(0, len(expanded_R), 8)]))
     
-                        key2 = K_list[round_num - 1]
+                        #key2 = K_list[round_num - 1]
                         #my_des.key = st.text_input(f"(K{round_num}):", key2)
-                        st.session_state.my_des_key = st.text_input(f"(K{round_num}):", key2)
+                        #st.session_state.my_des_key = st.text_input(f"(K{round_num}):", key2)
+                        cnt = 0
+                        for round_num in range(16, 0, -1):
+                            cnt += 1
+                            key2 = K_list[round_num - 1]
+                            st.session_state.my_des_key = st.text_input(f"(K{round_num}_{cnt}):", key2)
+                            # sisanya sama
 
-    
                         xor_result = my_des.xor(expanded_R, my_des.key)
                         st.subheader(f"Tahapan XOR (E(R) and Key)")
                         st.write(f"E(R) XOR KEY:", ' '.join([xor_result[i:i + 8] for i in range(0, len(xor_result), 8)]))
@@ -478,6 +483,7 @@ def main():
                     plaintext = my_des.final_permutation(final_result)
                     st.subheader("Plaintext setelah FP:")
                     st.write(' '.join([plaintext[i:i + 8] for i in range(0, len(plaintext), 8)]))
-                   
+
+
 if __name__ == "__main__":
     main()
