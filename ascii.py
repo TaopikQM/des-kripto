@@ -418,7 +418,9 @@ def main():
                         st.write("E(R):", ' '.join([expanded_R[i:i + 8] for i in range(0, len(expanded_R), 8)]))
     
                         key2 = K_list[round_num - 1]
-                        my_des.key = st.text_input(f"(K{round_num}):", key2)
+                        #my_des.key = st.text_input(f"(K{round_num}):", key2)
+                        st.session_state.my_des_key = st.text_input(f"(K{round_num}):", key2)
+
     
                         xor_result = my_des.xor(expanded_R, my_des.key)
                         st.subheader(f"Tahapan XOR (E(R) and Key)")
