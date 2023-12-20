@@ -392,50 +392,90 @@ def main():
                     # Inisialisasi L16 dan R16 dari permutated_result
                     L16, R16 = permutated_result[:len(permutated_result)//2], permutated_result[len(permutated_result)//2:]
                     
-                    # Proses invers per putaran dari R16 hingga R1
+                                    # Lakukan permutasi awal (IP) pada ciphertext
+                    permuted_ciphertext = my_des.initial_permutation(ciphertext)
+                    st.subheader("Ciphertext setelah IP:")
+                    st.write(' '.join([permuted_ciphertext[i:i + 8] for i in range(0, len(permutated_result), 8)]))
+    
+                    # Inisialisasi L16 dan R16 dari ciphertext
+                    L16, R16 = permuted_ciphertext[:len(permuted_ciphertext)//2], permuted_ciphertext[len(permuted_ciphertext)//2:]
+    
+                    # Melakukan perulangan untuk langkah-langkah R16 hingga R1
+                    all_R_values = []  # Tambahkan baris ini di awal fungsi main
                     for round_num in range(16, 0, -1):
-                        st.subheader(f"Tahapan Round {round_num} (Dekripsi)")
-                    
-                        # Simpan nilai R sebelumnya
-                        previous_R = R16
-                    
-                        # Lakukan XOR dengan L sebelumnya
-                        xor_result = my_des.xor(L16, previous_R)
-                        
-                        # Bagi xor_result menjadi blok-blok 6 bit
-                        xor_blocks = [xor_result[i:i+6] for i in range(0, len(xor_result), 6)]
-                        
+                        st.subheader(f"Tahapan Round {round_num}")
+    
+                        # Tampilkan nilai L16 hingga L1
+                        R0 = L16
+                        # Tampilkan L16, R16, dan R0 (dari L16)
+                        st.write(f"L{round_num}:", ' '.join([L16[i:i + 8] for i in range(0, len(L16), 8)]))
+                        st.write(f"R{round_num}:", ' '.join([R16[i:i + 8] for i in range(0, len(R16), 8)]))
+                        st.write(f"R{round_num-1}:", ' '.join([R0[i:i + 8] for i in range(0, len(R0), 8)]))
+    
+                        # Lakukan ekspansi dan XOR dengan kunci
+                        st.subheader("Tahapan Ekspansi R")
+                        expanded_R = my_des.expansion(R16)
+                        st.write("E(R):", ' '.join([expanded_R[i:i + 8] for i in range(0, len(expanded_R), 8)]))
+    
+                        key = K_list[round_num - 1]
+                        my_des.key = st.text_input(f"(K{round_num}):", key)
+    
+                        xor_result = my_des.xor(expanded_R, my_des.key)
+                        st.subheader(f"Tahapan XOR (E(R) and Key)")
+                        st.write(f"E(R) XOR KEY:", ' '.join([xor_result[i:i + 8] for i in range(0, len(xor_result), 8)]))
+    
+                        xor_blocks = []
+    
+                        st.subheader("Tahapan Pemisahan 8 blok per 6 bit")
+                        for i in range(0, len(xor_result), 6):
+                            xor_blocks.append(xor_result[i:i+6])
+    
+                        for i, block in enumerate(xor_blocks):
+                            st.write(f"Block {i + 1}: {block}")
+    
                         # Lakukan substitusi S-Box pada setiap blok
                         s_box_results = []
+                        st.subheader("Tahapan 8 blok per 6 bit dengan Tabel S-Box")
                         for i, block in enumerate(xor_blocks):
                             s_box_result = s_box_substitution(block, i % 8)
                             s_box_results.append(s_box_result)
-
-
-                    
-                        # Gabungkan hasil substitusi S-Box
-                        single_line = ''.join(s_box_results)
-                    
-                        # Lakukan permutasi dengan tabel invers P
-                        permutated_result = ""
-                        for index in P_inv:
-                            permutated_result += single_line[index - 1]
-                    
-                        # Update nilai R dan L untuk iterasi selanjutnya
-                        R16, L16 = permutated_result, previous_R
-                    
-                    # Gabungkan nilai akhir L dan R untuk mendapatkan plaintext hasil dekripsi
-                    decrypted_text = L16 + R16
-                    
-                    # Konversi blok bit ke karakter ASCII
-                    byte_chunks = [decrypted_text[i:i+8] for i in range(0, len(decrypted_text), 8)]
-                    ascii_characters = [chr(int(chunk, 2)) for chunk in byte_chunks]
-                    
-                    # Gabungkan karakter-karakter ASCII menjadi string
-                    decrypted_ascii_string = ''.join(ascii_characters)
-                    
-                    # Tampilkan hasil dekripsi dalam format ASCII
-                    st.write("Plaintext setelah dekripsi (ASCII):", decrypted_ascii_string)
+                            st.write(f"Hasil S-Box {i + 1}: {s_box_result}")
+    
+                        # Gabungkan semua hasil S-Box
+                        s_box_combined = ''.join(s_box_results)
+                        st.subheader("Hasil Gabungan S-Box:")
+                        st.write(s_box_combined)
+    
+                        # Lakukan permutasi P-box
+                        p_box_result = my_des.p_box(s_box_combined)
+                        st.subheader("Hasil Permutasi P-Box:")
+                        st.write(p_box_result)
+    
+                        # Lakukan XOR antara R0 dan hasil P-box
+                        xor_result = my_des.xor(R0, p_box_result)
+                        st.subheader("Hasil XOR (R0 dan P-Box):")
+                        st.write(xor_result)
+    
+                        # Simpan hasil XOR sebagai L1
+                        L1 = xor_result
+                        st.subheader(f"L{round_num-1}:")
+                        st.write(' '.join([L1[i:i + 8] for i in range(0, len(L1), 8)]))
+    
+                        # Simpan L1 untuk digunakan di putaran berikutnya
+                        all_R_values.append(L1)
+    
+                        # Atur L16 dan R16 untuk putaran berikutnya
+                        L16, R16 = L1, R0
+    
+                    # Gabungkan L0 dan R0
+                    final_result = all_R_values[-1] + R0
+                    st.subheader("Hasil Gabungan L0 dan R0:")
+                    st.write(' '.join([final_result[i:i + 8] for i in range(0, len(final_result), 8)]))
+    
+                    # Lakukan permutasi akhir (Final Permutation atau FP)
+                    plaintext = my_des.final_permutation(final_result)
+                    st.subheader("Plaintext setelah FP:")
+                    st.write(' '.join([plaintext[i:i + 8] for i in range(0, len(plaintext), 8)]))
 
                    
 if __name__ == "__main__":
