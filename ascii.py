@@ -463,7 +463,7 @@ def main():
                         st.write(s_box_combined)
                         
                         # Lakukan permutasi P-box
-                        p_box_result = my_des.p_box(s_box_combined)
+                        p_box_result = my_des.permutation(s_box_combined)
                         st.subheader("Hasil Permutasi P-Box:")
                         st.write(p_box_result)
 
