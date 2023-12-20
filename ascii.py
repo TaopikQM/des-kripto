@@ -449,14 +449,24 @@ def main():
                             st.write(f"Hasil S-Box {i + 1}: {s_box_result}")
     
                         # Gabungkan semua hasil S-Box
+                       # s_box_combined = ''.join(s_box_results)
+                        #st.subheader("Hasil Gabungan S-Box:")
+                        #st.write(s_box_combined)
+    
+                        # Lakukan permutasi P-box
+                        #p_box_result = my_des.p_box(s_box_combined)
+                        #st.subheader("Hasil Permutasi P-Box:")
+                        #st.write(p_box_result)
+                        # Gabungkan semua hasil S-Box
                         s_box_combined = ''.join(s_box_results)
                         st.subheader("Hasil Gabungan S-Box:")
                         st.write(s_box_combined)
-    
+                        
                         # Lakukan permutasi P-box
                         p_box_result = my_des.p_box(s_box_combined)
                         st.subheader("Hasil Permutasi P-Box:")
                         st.write(p_box_result)
+
     
                         # Lakukan XOR antara R0 dan hasil P-box
                         xor_result = my_des.xor(R0, p_box_result)
