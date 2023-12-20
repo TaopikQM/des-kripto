@@ -483,7 +483,7 @@ def main():
                         L16, R16 = L1, R0
     
                     # Gabungkan L0 dan R0
-                    final_result = all_R_values[-1] + R0
+                    final_result = R0 + all_R_values[-1]
                     st.subheader("Hasil Gabungan L0 dan R0:")
                     st.write(' '.join([final_result[i:i + 8] for i in range(0, len(final_result), 8)]))
     
