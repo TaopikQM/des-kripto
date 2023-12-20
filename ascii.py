@@ -488,9 +488,17 @@ def main():
                     st.write(' '.join([final_result[i:i + 8] for i in range(0, len(final_result), 8)]))
     
                     # Lakukan permutasi akhir (Final Permutation atau FP)
-                    plaintext = my_des.permutated_result(final_result)
+                    #plaintext = my_des.permutated_result(final_result)
+                    #st.subheader("Plaintext setelah FP:")
+                    #st.write(' '.join([plaintext[i:i + 8] for i in range(0, len(plaintext), 8)]))
+                    # Lakukan permutasi dengan tabel invers IP-1
+                    final_result = ""
+                    for index in IP_inv:
+                        final_result += permutated_result[index - 1]
+                    
                     st.subheader("Plaintext setelah FP:")
-                    st.write(' '.join([plaintext[i:i + 8] for i in range(0, len(plaintext), 8)]))
+                    st.write(' '.join([final_result[i:i + 8] for i in range(0, len(final_result), 8)]))
+
 
 
 if __name__ == "__main__":
